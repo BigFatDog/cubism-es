@@ -1,53 +1,57 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-<header>
-    <meta charset="utf-8">
-    <title>Multi-brush plot</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>cubism-es</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
 
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+        body {
+            background: #e2e1e0;
+            text-align: center;
+        }
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        .card {
+            background: #fff;
+            border-radius: 2px;
+            display: inline-block;
+            height: 160px;
+            margin: 1rem;
+            position: relative;
+            width: 240px;
+            text-decoration: none;
+            color: black;
+        }
 
+        .card-1 {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        }
 
+        .card-1:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
 
-</header>
+        .title {
+            font-size: 18px;
+            margin-top:62px;
+            font-weight: 600;
+        }
 
+    </style>
+</head>
 <body>
-<div class="container-fluid">
-    <div id="content" class="row">
 
-        <div class="col-xs-3" id="info">
-            <h3>Multi-brush scatter plot</h3>
-            <p>The plot uses the d3.brush() to create multiple brushes for selected data.</p>
+<a class="card card-1" href="discrete-cubism.html">
+    <div class="title">discrete-cubism</div>
+</a>
 
-
-            <div class="input-group">
-                <span class="input-group-addon">No. Brushes:</span>
-                <input id="brushInput" type="number" min="0" max="5" class="form-control" value="2" >
-            </div>
-            <br>
-
-            <div class="wrapper">
-                <button id="remove-brushes-btn" class="btn btn-danger btn-block"><i class="fa fa-times-circle"></i> Brushes</button>
-                <button id="find-data-btn" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Find Data</button>
-                <button id="match-two-btn" class="btn btn-success btn-block"><i class="fa fa-question-circle"></i> Count Lines</button>
-                <button id="disable-btn" class="btn btn-default btn-block"><i class="fa fa-toggle-on"></i> Brushes On</button>
-            </div>
-
-        </div>
-
-        <div id="plot" class="col-xs-9"></div>
-    </div>
-</div>
-
-<!-- <script type="text/javascript" src="./multiBrushes.js"></script> -->
-<script type="text/javascript" src="./plot.js"></script>
+<a class="card card-1" href="stock.html">
+    <div class="title">Stock</div>
+</a>
 </body>
-
 </html>

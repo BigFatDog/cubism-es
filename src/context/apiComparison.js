@@ -91,7 +91,7 @@ const runComparison = (state, selection) => {
 
             // positive changes
             canvasContext.fillStyle = colors[2];
-            for (const i = 0, n = width; i < n; ++i) {
+            for (let i = 0, n = width; i < n; ++i) {
                 const y0 = scale(primary_.valueAt(i)),
                     y1 = scale(secondary_.valueAt(i));
                 if (y0 < y1) canvasContext.fillRect(round(i), y0, 1, y1 - y0);
