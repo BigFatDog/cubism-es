@@ -54,7 +54,7 @@ const context = () => {
     apiSize(state),
     apiStart(state),
     apiStop(state),
-    apiStep(state),
+    apiStep(state)
   );
 
   state.timeout = setTimeout(_context.start, 10);

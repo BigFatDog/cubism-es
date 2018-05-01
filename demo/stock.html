@@ -115,10 +115,10 @@
     console.log(context);
 
     d3.select("#demo").selectAll(".axis")
-        .data(["top", "bottom"])
+        .data([ "bottom"])
         .enter().append("div")
         .attr("class", function(d) { return d + " axis"; })
-        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d) });
+        .each(function(d) { context.axis(d3.select(this)).ticks(12) });
 
     d3.select("body").append("div")
         .attr("class", "rule")

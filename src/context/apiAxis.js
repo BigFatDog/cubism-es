@@ -35,14 +35,13 @@ const apiFocusFormat = axisState => ({
 });
 
 const runAxis = (state, selection) => {
-  const { _axis, scale, format, id, context, size } = state;
-
-  let tick;
+  const { _axis, scale, format, id, size, context } = state;
+  let tick = null;
 
   const g = selection
     .append('svg')
     .datum({ id })
-    .attr('width', context)
+    .attr('width', size)
     .attr('height', Math.max(28, -_axis.tickSize()))
     .append('g')
     .attr('transform', 'translate(0,' + 4 + ')')
@@ -50,17 +49,17 @@ const runAxis = (state, selection) => {
 
   context.on('change.axis-' + id, () => {
     g.call(_axis);
-    if (!tick)
-      tick = select(
-        g.node().appendChild(
-          g
-            .selectAll('text')
-            .node()
-            .cloneNode(true)
-        )
-      )
-        .style('display', 'none')
-        .text(null);
+    // if (!tick)
+    //   tick = select(
+    //     g.node().appendChild(
+    //       g
+    //         .selectAll('text')
+    //         .node()
+    //         .cloneNode(true)
+    //     )
+    //   )
+    //     .style('display', 'none')
+    //     .text(null);
   });
 
   context.on('focus.axis-' + id, i => {
@@ -82,6 +81,10 @@ const runAxis = (state, selection) => {
   });
 };
 
+const apiTicks = axisState => ({
+    ticks: (...args)=> axisState._axis.ticks(args)
+})
+
 const apiAxis = context => ({
   axis: selection => {
     const axisState = {
@@ -97,7 +100,8 @@ const apiAxis = context => ({
     return Object.assign(
       axisState,
       apiRemove(axisState),
-      apiFocusFormat(axisState)
+      apiFocusFormat(axisState),
+      apiTicks(axisState)
     );
   },
 });

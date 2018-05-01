@@ -1,7 +1,7 @@
 const apiOn = state => ({
   on: (type, listener = null) => {
     const { event, focus, start1, stop1, start0, stop0 } = state;
-    if ((listener === null)) return event.on(type);
+    if (listener === null) return event.on(type);
 
     event.on(type, listener);
 
