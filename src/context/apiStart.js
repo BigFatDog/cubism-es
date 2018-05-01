@@ -9,6 +9,7 @@ const apiStart = state => ({
       step,
       event,
       scale,
+      size,
       stop0,
       start0,
     } = state;

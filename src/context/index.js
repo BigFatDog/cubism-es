@@ -38,10 +38,8 @@ const context = () => {
     scale: scaleTime().range([0, 1440]),
   };
 
-  timeout = setTimeout(index.start, 10);
-
   const _context = Object.assign(
-    {},
+    state,
     apiStart(state),
     apiStop(state),
     apiOn(state),
@@ -57,7 +55,9 @@ const context = () => {
     apiComparison(state)
   );
 
-  const { focus } = state;
+  setTimeout(_context.start, 10);
+
+  const { focus } = _context;
 
   select(window).on('keydown.context-' + ++_context._id, function() {
     switch (!event.metaKey && event.keyCode) {
