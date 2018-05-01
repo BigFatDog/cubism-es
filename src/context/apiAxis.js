@@ -6,9 +6,9 @@ const formatSeconds = timeFormat('%I:%M:%S %p');
 const formatMinutes = timeFormat('%I:%M %p');
 const formatDays = timeFormat('%B %d');
 const formatDefault = context =>
-  context.step() < 6e4
+  context.step < 6e4
     ? formatSeconds
-    : context.step() < 864e5
+    : context.step < 864e5
       ? formatMinutes
       : formatDays;
 
@@ -35,14 +35,14 @@ const apiFocusFormat = axisState => ({
 });
 
 const runAxis = (state, selection) => {
-  const { _axis, scale, format, id, context } = state;
+  const { _axis, scale, format, id, context, size } = state;
 
   let tick;
 
   const g = selection
     .append('svg')
     .datum({ id })
-    .attr('width', context.size())
+    .attr('width', context)
     .attr('height', Math.max(28, -_axis.tickSize()))
     .append('g')
     .attr('transform', 'translate(0,' + 4 + ')')

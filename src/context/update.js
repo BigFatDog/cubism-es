@@ -1,5 +1,14 @@
 const update = state => {
-  const { start0, stop0, stop1, step, serverDelay, clientDelay, scale, size } = state;
+  const {
+    start0,
+    stop0,
+    stop1,
+    step,
+    serverDelay,
+    clientDelay,
+    scale,
+    size,
+  } = state;
   const now = Date.now();
   state.stop0 = new Date(
     Math.floor((now - serverDelay - clientDelay) / step) * step

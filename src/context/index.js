@@ -8,6 +8,7 @@ import apiFocus from './apiFocus';
 import apiClientDelay from './apiClientDelay';
 import apiServerDelay from './apiServerDelay';
 import apiSize from './apiSize';
+import apiStep from './apiStep';
 import update from './update';
 
 import apiMetric from '../metric';
@@ -19,7 +20,7 @@ import apiHorizon from './apiHorizon';
 import apiGangliaWeb from './apiGangliaWeb';
 import apiLibrato from '../librato';
 import apiGraphite from './apiGraphite';
-import apiComparison from "./apiComparison";
+import apiComparison from './apiComparison';
 
 const context = () => {
   const state = {
@@ -40,22 +41,23 @@ const context = () => {
 
   const _context = Object.assign(
     state,
+    apiAxis(state),
+    apiComparison(state),
+    apiCube(state),
+    apiClientDelay(state),
+    apiFocus(state),
+    apiHorizon(state),
+    apiMetric(state),
+    apiOn(state),
+    apiRule(state),
+    apiServerDelay(state),
+    apiSize(state),
     apiStart(state),
     apiStop(state),
-    apiOn(state),
-    apiFocus(state),
-    apiClientDelay(state),
-    apiSize(state),
-    apiServerDelay(state),
-    apiCube(state),
-    apiMetric(state),
-    apiAxis(state),
-    apiRule(state),
-    apiHorizon(state),
-    apiComparison(state)
+    apiStep(state),
   );
 
-  setTimeout(_context.start, 10);
+  state.timeout = setTimeout(_context.start, 10);
 
   const { focus } = _context;
 
