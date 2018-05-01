@@ -31,7 +31,7 @@ export default {
         {
             file: pkg.main,
             format: 'umd',
-            name: 'VizArtCore',
+            name: 'cubism',
             sourcemap: true
         },
         {
