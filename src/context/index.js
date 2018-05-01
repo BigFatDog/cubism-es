@@ -35,7 +35,7 @@ const context = () => {
     stop1: null, // the start and stop for the next prepare event
     timeout: null,
     focus: null,
-    scale: scaleTime().range([0, size]),
+    scale: scaleTime().range([0, 1440]),
   };
 
   timeout = setTimeout(index.start, 10);

@@ -43,7 +43,7 @@ export default {
         {
             file: 'dist/cubism-es.standalone.js',
             format: 'umd',
-            name: 'VizArtCore',
+            name: 'cubism',
             sourcemap: true
         }
     ]
