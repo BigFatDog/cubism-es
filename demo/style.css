@@ -1,0 +1,44 @@
+body {
+    padding: 25px;
+    font: 12px Arial;
+}
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.legend {
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+.selection {
+    fill: green;
+    stroke: black;
+    stroke-width: 1px;
+    stroke-dasharray: 3px 3px;
+}
+
+.selected {
+    fill: lime !important;
+    stroke: black;
+}
+
+.wrapper .btn-block {
+    width: 50%;
+}
+
+.btn {
+    margin: 0 auto;
+}

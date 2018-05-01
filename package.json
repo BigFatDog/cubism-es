@@ -1,0 +1,88 @@
+{
+  "name": "cubism-es",
+  "version": "0.0.0",
+  "description": "Rewrite Cubism.js with D3 V4",
+  "main": "dist/cubism-es.js",
+  "module": "dist/cubism-es.mjs",
+  "jsnext:main": "dist/cubism-es.mjs",
+  "scripts": {
+    "_prebuild": "eslint src test",
+    "build": "rollup -c",
+    "dev": "rollup -c rollup.config.dev.js -w",
+    "watch": "rollup -c -w",
+    "pretest": "npm run build",
+    "test:watch": "mocha --reporter min --watch",
+    "test": "mocha",
+    "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "prepublish": "npm test",
+    "pretty": "prettier --single-quote --trailing-comma es5 --write \"{src,__{tests,demo,dist}__}/**/*.js\""
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "d3-array": "^1.2.1",
+    "d3-axis": "^1.0.8",
+    "d3-collection": "^1.0.4",
+    "d3-color": "^1.1.0",
+    "d3-dispatch": "^1.0.3",
+    "d3-fetch": "^1.1.0",
+    "d3-format": "^1.2.2",
+    "d3-interpolate": "^1.1.6",
+    "d3-path": "^1.0.5",
+    "d3-quadtree": "^1.0.3",
+    "d3-scale": "^2.0.0",
+    "d3-scale-chromatic": "^1.2.0",
+    "d3-selection": "^1.3.0",
+    "d3-shape": "^1.2.0",
+    "d3-time": "^1.0.8",
+    "d3-time-format": "^2.1.1",
+    "d3-transition": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babelrc-rollup": "^3.0.0",
+    "eslint": "^4.19.1",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^5.1.1",
+    "prettier": "1.12.1",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-local-resolve": "^1.0.7",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-postcss": "^1.6.1",
+    "rollup-plugin-serve": "^0.4.2",
+    "rollup-watch": "^4.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VizArtJS/cubism-es.git"
+  },
+  "keywords": [
+    "Cubism",
+    "Time Series",
+    "ES6",
+    "Data Visualization",
+    "D3",
+    "D3V4"
+  ],
+  "author": {
+    "name": "Yun Xing",
+    "email": "ink.xing.yun@gmail.com",
+    "url": "https://github.com/BigFatDog/"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/BigFatDog/cubism-es"
+}
