@@ -1,4 +1,6 @@
 import { mouse, select } from 'd3-selection';
+import { scaleLinear } from 'd3-scale';
+import { interpolateRound } from 'd3-interpolate';
 
 const runHorizon = (context, state, selection) => {
   const { width, height } = state;
@@ -221,13 +223,17 @@ const apiMisc = state => ({
 });
 
 const apiHorizon = context => ({
-  horizion: selection => {
+  horizon: selection => {
+    const buffer = document.createElement('canvas');
+    buffer.width = context.size();
+    buffer.height = 30;
+
     const state = {
       mode: 'offset',
-      buffer: document.createElement('canvas'),
-      width: (buffer.width = context.size()),
-      height: (buffer.height = 30),
-      scale: d3.scale.linear().interpolate(d3.interpolateRound),
+      buffer,
+      width: buffer.width,
+      height: buffer.height,
+      scale: scaleLinear().interpolate(interpolateRound),
       metric: d => d,
       extent: null,
       title: d => d,
