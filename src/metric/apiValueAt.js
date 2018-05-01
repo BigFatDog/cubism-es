@@ -1,4 +1,4 @@
-const apiValueAt = (state = {
+const apiValueAt = state => ({
   valueAt: i => state.values[i],
 });
 
