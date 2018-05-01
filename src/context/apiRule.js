@@ -68,7 +68,7 @@ const runRule = (state, selection) => {
     line
       .datum(i)
       .style('display', i == null ? 'none' : null)
-      .style('left', i == null ? null : cubism_ruleLeft);
+      .style('left', i == null ? null : `${i}px`);
   });
 };
 

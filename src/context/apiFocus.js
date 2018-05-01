@@ -1,7 +1,7 @@
 const apiFocus = state => ({
   focus: i => {
     const { event } = state;
-    event.focus.call(state, (state.focus = i));
+    event.call('focus', state, (state.focus = i));
     return state;
   },
 });

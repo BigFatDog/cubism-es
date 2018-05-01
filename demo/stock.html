@@ -122,7 +122,8 @@
 
     d3.select("body").append("div")
         .attr("class", "rule")
-        .call(context.rule());
+        .attr('id', 'rule');
+    context.rule(d3.select('#rule'))
 
     d3.select("body").selectAll(".horizon")
         .data(["AAPL", "BIDU", "SINA", "GOOG", "MSFT", "YHOO", "ADBE", "REDF", "INSP", "IACI", "AVID", "CCUR", "DELL", "DGII", "HPQ", "SGI", "SMCI", "SNDK", "SYNA"].map(stock))
@@ -137,7 +138,7 @@
 
     // Replace this with context.graphite and graphite.metric!
     function stock(name) {
-        var format = d3.time.format("%d-%b-%y");
+        var format = d3.timeFormat("%d-%b-%y");
         return context.metric(function(start, stop, step, callback) {
             d3.csv("stocks/" + name + ".csv", function(rows) {
                 rows = rows.map(function(d) { return [format.parse(d.Date), +d.Open]; }).filter(function(d) { return d[1]; }).reverse();

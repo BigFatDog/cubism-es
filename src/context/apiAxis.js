@@ -82,8 +82,8 @@ const runAxis = (state, selection) => {
 };
 
 const apiTicks = axisState => ({
-    ticks: (...args)=> axisState._axis.ticks(args)
-})
+  ticks: (...args) => axisState._axis.ticks(args),
+});
 
 const apiAxis = context => ({
   axis: selection => {
