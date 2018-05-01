@@ -1,12 +1,11 @@
 const apiExtent = state => ({
   extent: () => {
-    const { context } = state;
+    const { size } = state;
     let i = 0,
-      n = context.size(),
       value,
       min = Infinity,
       max = -Infinity;
-    while (++i < n) {
+    while (++i < size) {
       value = state.valueAt(i);
       if (value < min) min = value;
       if (value > max) max = value;

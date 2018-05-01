@@ -1,9 +1,10 @@
 import { mouse, select } from 'd3-selection';
 import { scaleLinear } from 'd3-scale';
 import { interpolateRound } from 'd3-interpolate';
+import { format } from 'd3-format';
 
 const runHorizon = (context, state, selection) => {
-  const { width, height } = state;
+  const { width, height, title, metric, colors, extent, scale } = state;
 
   selection
     .on('mousemove.horizon', function() {
@@ -28,7 +29,7 @@ const runHorizon = (context, state, selection) => {
       metric_ = typeof metric === 'function' ? metric(d, i) : metric,
       colors_ = typeof colors === 'function' ? colors(d, i) : colors,
       extent_ = typeof extent === 'function' ? extent(d, i) : extent,
-      step = context.step(),
+      step = context.step,
       canvas = select(this).select('canvas'),
       span = select(this).select('.value'),
       m = colors_.length >> 1;
@@ -225,7 +226,7 @@ const apiMisc = state => ({
 const apiHorizon = context => ({
   horizon: selection => {
     const buffer = document.createElement('canvas');
-    buffer.width = context.size();
+    buffer.width = context.size;
     buffer.height = 30;
 
     const state = {
@@ -237,7 +238,7 @@ const apiHorizon = context => ({
       metric: d => d,
       extent: null,
       title: d => d,
-      format: d3.format('.2s'),
+      format: format('.2s'),
       colors: [
         '#08519c',
         '#3182bd',

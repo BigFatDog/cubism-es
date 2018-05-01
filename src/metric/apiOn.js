@@ -1,6 +1,6 @@
 // When the context changes, switch to the new data, ready-or-not!
 const beforechange = state => (start1, stop1) => {
-  const { values, step } = state;
+  const { values, step, size, start } = state;
   if (!isFinite(state.start)) state.start = start1;
   values.splice(
     0,
@@ -10,11 +10,29 @@ const beforechange = state => (start1, stop1) => {
   state.stop = stop1;
 };
 
+
+// Prefetch new data into a temporary array.
+const prepare = state => (start1, stop)=> {
+    const { start, step, fetching, event, size } = state;
+    const steps = Math.min(size, Math.round((start1 - start) / step));
+    if (!steps || fetching) return; // already fetched, or fetching!
+    state.fetching = true;
+    state.steps = Math.min(size, steps + 6);
+    const start0 = new Date(stop - state.steps * step);
+    request(start0, stop, step, function(error, data) {
+        state.fetching = false;
+        if (error) return console.warn(error);
+        const i = isFinite(start) ? Math.round((start0 - start) / step) : 0;
+        for (let j = 0, m = data.length; j < m; ++j) values[j + i] = data[j];
+        event.call('change', metric, start, stop);
+    });
+}
+
 const apiOn = state => ({
   on: (type, listener = null) => {
-    if (listener === null) return event.on(type);
-
     const { event, id, context, start, stop } = state;
+
+    if (listener === null) return event.on(type);
 
     // If there are no listeners, then stop listening to the context,
     // and avoid unnecessary fetches.

@@ -46,7 +46,6 @@ const context = () => {
     apiCube(state),
     apiClientDelay(state),
     apiFocus(state),
-    apiHorizon(state),
     apiMetric(state),
     apiOn(state),
     apiRule(state),
@@ -82,6 +81,7 @@ const context = () => {
 
   return Object.assign(
     cubismContext,
+    apiHorizon(cubismContext),
     apiGangliaWeb(cubismContext),
     apiLibrato(cubismContext),
     apiGraphite(cubismContext)
