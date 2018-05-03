@@ -2,7 +2,6 @@ const apiStart = state => ({
   start: () => {
     const {
       _timeout,
-      _start1,
       _stop1,
       _serverDelay,
       _clientDelay,
@@ -23,12 +22,15 @@ const apiStart = state => ({
       state._stop1 = new Date(
         Math.floor((Date.now() - _serverDelay) / _step) * _step
       );
-      state._start1 = new Date(_stop1 - _size * _step);
+      state._start1 = new Date(state._stop1 - _size * _step);
       _event.call('prepare', state, state._start1, state._stop1);
 
       setTimeout(function() {
-        _scale.domain([(state.start0 = state._start1), (state.stop0 = state._stop1)]);
-        _event.call('beforechange', state, state._start1,state. _stop1);
+        state.start0 = state._start1;
+        state.stop0 = state._stop1;
+        console.log(state.start0, state.stop0)
+        _scale.domain([state.start0, state.stop0]);
+        _event.call('beforechange', state, state._start1, state. _stop1);
         _event.call('change', state, state._start1, state._stop1);
         _event.call('focus', state, _focus);
       }, _clientDelay);
