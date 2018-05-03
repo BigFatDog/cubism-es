@@ -4,7 +4,7 @@ import { interpolateRound } from 'd3-interpolate';
 import { format } from 'd3-format';
 
 const runHorizon = (context, state, selection) => {
-  const { _width, _height, _title, _metric, _colors, _extent, _scale, _buffer } = state;
+  const { _width, _height, _title, _metric, _colors, _extent, _scale, _buffer, _mode } = state;
 
   selection
     .on('mousemove.horizon', function() {
@@ -109,7 +109,7 @@ const runHorizon = (context, state, selection) => {
 
       if (negative) {
         // enable offset mode
-        if (mode === 'offset') {
+        if (_mode === 'offset') {
           ctx.translate(0, _height);
           ctx.scale(1, -1);
         }

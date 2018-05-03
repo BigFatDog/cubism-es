@@ -67,6 +67,7 @@
             i = 0,
             last;
         return context.metric(function(start, stop, step, callback) {
+            console.log('called')
             start = +start, stop = +stop;
             if (isNaN(last)) last = start;
             while (last < stop) {

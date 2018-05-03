@@ -15,21 +15,21 @@ const apiMetric = context => ({
   metric: (request, name) => {
     const metricState = {
       context,
-      id: '.metric-' + ++context._id,
-      start: -Infinity,
-      stop: null,
-      step: context.step(),
-      size: context.size(),
-      values: [],
-      event: dispatch('change'),
-      listening: 0,
-      fetching: false,
-      valueAt: () => NaN,
+      _id: '.metric-' + ++context._id,
+      _start: -Infinity,
+      _stop: null,
+      _step: context.step(),
+      _size: context.size(),
+      _values: [],
+      _event: dispatch('change'),
+      _listening: 0,
+      _fetching: false,
+      _valueAt: () => NaN,
     };
 
     return Object.assign(
-      {},
-      apiOn(metricState),
+      metricState,
+      apiOn(metricState, request),
       apiPrepare(metricState, request),
       apiValueAt(metricState),
       apiAlias(metricState),

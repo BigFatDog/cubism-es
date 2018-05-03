@@ -254,6 +254,7 @@
                 value = Math.max(-10, Math.min(10, value + .8 * Math.random() - .4 + .2 * Math.cos(i += .2)));
                 values.push(value);
             }
+
             callback(null, values = values.slice((start - stop) / step));
         }, name);
     }
@@ -277,14 +278,14 @@
             // .call(context.axis());
         context.axis(d3.selectAll('.axis'))
 
-        div.selectAll(".horizon")
+        const h1 = div.selectAll(".horizon")
             .data([foo, bar])
             // .data([foo, bar, foo.add(bar), foo.subtract(bar)])
 
                 .enter().append("div")
             .attr("class", "horizon");
 
-        context.horizon(div.selectAll(".horizon")).extent([-20, 20])
+        context.horizon(h1).extent([-20, 20])
             // .call(context.horizon()._extent([-20, 20]));
 
         div.append("div")

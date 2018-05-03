@@ -4,20 +4,20 @@ const MetricOverlap = 6;
 // Prefetch new data into a temporary array.
 const apiPrepare = (state, request) => ({
   prepare: (start1, stop) => {
-    const { size, start, step, fetching, event } = state;
+    const { _size, _start, _step, _fetching, _event } = state;
 
-    const steps = Math.min(size, Math.round((start1 - start) / step));
-    if (!steps || fetching === true) return; // already fetched, or fetching!
-    state.fetching = true;
-    state.steps = Math.min(size, steps + MetricOverlap);
-    const start0 = new Date(stop - steps * step);
+    const steps = Math.min(_size, Math.round((start1 - _start) / _step));
+    if (!steps || _fetching === true) return; // already fetched, or fetching!
+    state._fetching = true;
+    state._steps = Math.min(_size, steps + MetricOverlap);
+    const start0 = new Date(stop - steps * _step);
 
-    request(start0, stop, step, function(error, data) {
-      state.fetching = false;
+    request(start0, stop, _step, function(error, data) {
+      state._fetching = false;
       if (error) return console.warn(error);
-      const i = isFinite(start) ? Math.round((start0 - start) / step) : 0;
+      const i = isFinite(_start) ? Math.round((start0 - _start) / _step) : 0;
       for (let j = 0, m = data.length; j < m; ++j) values[j + i] = data[j];
-      event.change.call(state, start, stop);
+      _event.call('change', state, _start, stop);
     });
   },
 });
