@@ -4,7 +4,17 @@ import { interpolateRound } from 'd3-interpolate';
 import { format } from 'd3-format';
 
 const runHorizon = (context, state, selection) => {
-  const { _width, _height, _title, _metric, _colors, _extent, _scale, _buffer, _mode } = state;
+  const {
+    _width,
+    _height,
+    _title,
+    _metric,
+    _colors,
+    _extent,
+    _scale,
+    _buffer,
+    _mode,
+  } = state;
 
   selection
     .on('mousemove.horizon', function() {
@@ -138,7 +148,7 @@ const runHorizon = (context, state, selection) => {
       if (i == null) i = _width - 1;
       const value = metric_.valueAt(i);
       span.datum(value).text(isNaN(value) ? null : format);
-    }
+    };
 
     // Update the chart when the context changes.
     context.on('change.horizon-' + id, change);
@@ -150,7 +160,7 @@ const runHorizon = (context, state, selection) => {
     // so that it continues to update automatically.
     metric_.on('change.horizon-' + id, function(start, stop) {
       change(start, stop), focus();
-      if (ready) metric_.on('change.horizon-' + id, d=>d);
+      if (ready) metric_.on('change.horizon-' + id, d => d);
     });
   });
 };

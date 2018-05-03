@@ -1,6 +1,6 @@
 // When the context changes, switch to the new data, ready-or-not!
 const beforechange = state => (start1, stop1) => {
-  const {_step, _size } = state;
+  const { _step, _size } = state;
   if (!isFinite(state._start)) state._start = start1;
   state._values.splice(
     0,
