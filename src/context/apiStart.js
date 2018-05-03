@@ -24,13 +24,13 @@ const apiStart = state => ({
         Math.floor((Date.now() - _serverDelay) / _step) * _step
       );
       state._start1 = new Date(_stop1 - _size * _step);
-      _event.call('prepare', context, _start1, _stop1);
+      _event.call('prepare', state, _start1, _stop1);
 
       setTimeout(function() {
         _scale.domain([(state.start0 = _start1), (state.stop0 = _stop1)]);
-        _event.call('beforechange', context, _start1, _stop1);
-        _event.call('change', context, _start1, _stop1);
-        _event.call('focus', context, _focus);
+        _event.call('beforechange', state, _start1, _stop1);
+        _event.call('change', state, _start1, _stop1);
+        _event.call('focus', state, _focus);
       }, _clientDelay);
 
       state.timeout = setTimeout(prepare, _step);
