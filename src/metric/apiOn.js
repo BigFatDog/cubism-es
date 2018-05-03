@@ -19,7 +19,7 @@ const prepare = (state, request) => (start1, stop) => {
   state._steps = Math.min(_size, steps + 6);
   const start0 = new Date(stop - state._steps * _step);
   request(start0, stop, _step, function(error, data) {
-    state.fetching = false;
+    state._fetching = false;
     if (error) return console.warn(error);
     const i = isFinite(_start) ? Math.round((start0 - _start) / _step) : 0;
     for (let j = 0, m = data.length; j < m; ++j) state._values[j + i] = data[j];
