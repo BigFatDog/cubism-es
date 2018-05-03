@@ -8,8 +8,8 @@ import apiShift from './apiShift';
 import apiValueAt from './apiValueAt';
 
 const apiToString = name => ({
-    toString: ()=> name
-})
+  toString: () => name,
+});
 
 const apiMetric = context => ({
   metric: (request, name) => {

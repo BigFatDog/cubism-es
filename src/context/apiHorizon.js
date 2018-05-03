@@ -20,10 +20,7 @@ const runHorizon = (context, state, selection) => {
   selection
     .append('span')
     .attr('class', 'title')
-    .text(d => {
-      console.log(d);
-      return title(d);
-    });
+    .text(title);
 
   selection.append('span').attr('class', 'value');
 
