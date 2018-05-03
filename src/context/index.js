@@ -58,7 +58,7 @@ const context = () => {
 
   state._timeout = setTimeout(_context.start, 10);
 
-  const { focus } = _context;
+  const { focus, _size } = _context;
 
   select(window).on('keydown.context-' + ++_context._id, function() {
     switch (!event.metaKey && event.keyCode) {
@@ -68,7 +68,7 @@ const context = () => {
         break;
       case 39: // right
         if (focus == null) _context.focus = size - 2;
-        if (focus < size - 1) _context.focus(++_context.focus);
+        if (focus < _size - 1) _context.focus(++_context.focus);
         break;
       default:
         return;

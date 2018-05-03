@@ -285,7 +285,7 @@
             .attr("class", "horizon");
 
         context.horizon(div.selectAll(".horizon")).extent([-20, 20])
-            // .call(context.horizon().extent([-20, 20]));
+            // .call(context.horizon()._extent([-20, 20]));
 
         div.append("div")
             .attr("class", "rule");
@@ -302,7 +302,6 @@
 
         const a = div.append("div")
             .attr("class", "horizon");
-
 
         context.horizon(a)
             .height(120)
