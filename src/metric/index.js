@@ -7,6 +7,10 @@ import apiPrepare from './apiPrepare';
 import apiShift from './apiShift';
 import apiValueAt from './apiValueAt';
 
+const apiToString = name => ({
+    toString: ()=> name
+})
+
 const apiMetric = context => ({
   metric: (request, name) => {
     const metricState = {
@@ -30,7 +34,8 @@ const apiMetric = context => ({
       apiValueAt(metricState),
       apiAlias(metricState),
       apiShift(metricState, request),
-      apiExtent(metricState)
+      apiExtent(metricState),
+      apiToString(name)
     );
   },
 });

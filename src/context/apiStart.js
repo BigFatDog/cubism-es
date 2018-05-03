@@ -10,7 +10,7 @@ const apiStart = state => ({
       _event,
       _scale,
       _size,
-      _focus
+      _focus,
     } = state;
 
     if (_timeout) clearTimeout(_timeout);

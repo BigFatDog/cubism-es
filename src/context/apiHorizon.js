@@ -22,7 +22,7 @@ const runHorizon = (context, state, selection) => {
     .attr('class', 'title')
     .text(d => {
       console.log(d);
-      return title(d)
+      return title(d);
     });
 
   selection.append('span').attr('class', 'value');
@@ -227,7 +227,7 @@ const apiMisc = state => ({
 });
 
 const apiHorizon = context => ({
-  horizon: function (selection) {
+  horizon: function(selection) {
     const buffer = document.createElement('canvas');
     buffer.width = context.size();
     buffer.height = 30;

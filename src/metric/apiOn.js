@@ -10,23 +10,22 @@ const beforechange = state => (start1, stop1) => {
   state.stop = stop1;
 };
 
-
 // Prefetch new data into a temporary array.
-const prepare = state => (start1, stop)=> {
-    const { start, step, fetching, event, size } = state;
-    const steps = Math.min(size, Math.round((start1 - start) / step));
-    if (!steps || fetching) return; // already fetched, or fetching!
-    state.fetching = true;
-    state.steps = Math.min(size, steps + 6);
-    const start0 = new Date(stop - state.steps * step);
-    request(start0, stop, step, function(error, data) {
-        state.fetching = false;
-        if (error) return console.warn(error);
-        const i = isFinite(start) ? Math.round((start0 - start) / step) : 0;
-        for (let j = 0, m = data.length; j < m; ++j) values[j + i] = data[j];
-        event.call('change', metric, start, stop);
-    });
-}
+const prepare = state => (start1, stop) => {
+  const { start, step, fetching, event, size } = state;
+  const steps = Math.min(size, Math.round((start1 - start) / step));
+  if (!steps || fetching) return; // already fetched, or fetching!
+  state.fetching = true;
+  state.steps = Math.min(size, steps + 6);
+  const start0 = new Date(stop - state.steps * step);
+  request(start0, stop, step, function(error, data) {
+    state.fetching = false;
+    if (error) return console.warn(error);
+    const i = isFinite(start) ? Math.round((start0 - start) / step) : 0;
+    for (let j = 0, m = data.length; j < m; ++j) values[j + i] = data[j];
+    event.call('change', metric, start, stop);
+  });
+};
 
 const apiOn = state => ({
   on: (type, listener = null) => {
