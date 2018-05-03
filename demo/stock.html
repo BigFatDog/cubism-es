@@ -130,9 +130,9 @@
         .enter().insert("div", ".bottom")
         .attr("class", "horizon");
 
-    console.log(context.horizon(d3.selectAll('.horizon')))
-    context.horizon(d3.selectAll('.horizon'))
-            .format(d3.format("+,.2p"));
+    d3.selectAll('.horizon').call(context.horizon
+        ).format(d3.format("+,.2p"));
+    ;
 
     context.on("focus", function(i) {
         d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");

@@ -6,9 +6,9 @@ const formatSeconds = timeFormat('%I:%M:%S %p');
 const formatMinutes = timeFormat('%I:%M %p');
 const formatDays = timeFormat('%B %d');
 const formatDefault = context =>
-  context.step < 6e4
+  context.step() < 6e4
     ? formatSeconds
-    : context.step < 864e5
+    : context.step() < 864e5
       ? formatMinutes
       : formatDays;
 
@@ -49,17 +49,17 @@ const runAxis = (state, selection) => {
 
   context.on('change.axis-' + id, () => {
     g.call(_axis);
-    // if (!tick)
-    //   tick = select(
-    //     g.node().appendChild(
-    //       g
-    //         .selectAll('text')
-    //         .node()
-    //         .cloneNode(true)
-    //     )
-    //   )
-    //     .style('display', 'none')
-    //     .text(null);
+    if (!tick)
+      tick = select(
+        g.node().appendChild(
+          g
+            .selectAll('text')
+            .node()
+            .cloneNode(true)
+        )
+      )
+        .style('display', 'none')
+        .text(null);
   });
 
   context.on('focus.axis-' + id, i => {
@@ -89,8 +89,8 @@ const apiAxis = context => ({
   axis: selection => {
     const axisState = {
       context,
-      scale: context.scale,
-      _axis: axisBottom().scale(context.scale),
+      scale: context._scale,
+      _axis: axisBottom().scale(context._scale),
       format: formatDefault(context),
       id: ++context._id,
     };

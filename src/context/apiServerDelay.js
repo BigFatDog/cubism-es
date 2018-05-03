@@ -5,9 +5,8 @@ import update from './update';
 // metrics from various hosts. Defaults to 4 seconds.
 const apiServerDelay = state => ({
   serverDelay: (_serverDelay = null) => {
-    const { serverDelay } = state;
-    if (_serverDelay === null) return serverDelay;
-    state.serverDelay = +_serverDelay;
+    if (_serverDelay === null) return state._serverDelay;
+    state._serverDelay = +_serverDelay;
     return update(state);
   },
 });

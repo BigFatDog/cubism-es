@@ -4,7 +4,7 @@ import { interpolateRound } from 'd3-interpolate';
 import { format } from 'd3-format';
 
 const runHorizon = (context, state, selection) => {
-  const { width, height, title, metric, colors, extent, scale } = state;
+  const { width, height, title, metric, colors, extent, scale, buffer } = state;
 
   selection
     .on('mousemove.horizon', function() {
@@ -20,7 +20,10 @@ const runHorizon = (context, state, selection) => {
   selection
     .append('span')
     .attr('class', 'title')
-    .text(title);
+    .text(d => {
+      console.log(d);
+      return title(d)
+    });
 
   selection.append('span').attr('class', 'value');
 
@@ -29,7 +32,7 @@ const runHorizon = (context, state, selection) => {
       metric_ = typeof metric === 'function' ? metric(d, i) : metric,
       colors_ = typeof colors === 'function' ? colors(d, i) : colors,
       extent_ = typeof extent === 'function' ? extent(d, i) : extent,
-      step = context.step,
+      step = context.step(),
       canvas = select(this).select('canvas'),
       span = select(this).select('.value'),
       m = colors_.length >> 1;
@@ -54,14 +57,14 @@ const runHorizon = (context, state, selection) => {
       let i0 = 0,
         max = Math.max(-extent[0], extent[1]);
       if (this === context) {
-        if (max == max_) {
-          i0 = width - cubism_metricOverlap;
+        if (max === max_) {
+          i0 = width - 6;
           const dx = (start1 - start) / step;
           if (dx < width) {
             const canvas0 = buffer.getContext('2d');
             canvas0.clearRect(0, 0, width, height);
             canvas0.drawImage(
-              canvas.canvas,
+              ctx.canvas,
               dx,
               0,
               width - dx,
@@ -224,9 +227,9 @@ const apiMisc = state => ({
 });
 
 const apiHorizon = context => ({
-  horizon: selection => {
+  horizon: function (selection) {
     const buffer = document.createElement('canvas');
-    buffer.width = context.size;
+    buffer.width = context.size();
     buffer.height = 30;
 
     const state = {

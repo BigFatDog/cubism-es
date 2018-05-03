@@ -25,18 +25,18 @@ import apiComparison from './apiComparison';
 const context = () => {
   const state = {
     _id: 1,
-    step: 1e4, // ten seconds, in milliseconds
-    size: 1440, // ten seconds, in milliseconds
-    serverDelay: 5e3,
-    clientDelay: 5e3,
-    event: dispatch('prepare', 'beforechange', 'change', 'focus'),
-    start0: null,
-    stop0: null, // the start and stop for the previous change event
-    start1: null,
-    stop1: null, // the start and stop for the next prepare event
-    timeout: null,
-    focus: null,
-    scale: scaleTime().range([0, 1440]),
+    _step: 1e4, // ten seconds, in milliseconds
+    _size: 1440, // ten seconds, in milliseconds
+    _serverDelay: 5e3,
+    _clientDelay: 5e3,
+    _event: dispatch('prepare', 'beforechange', 'change', 'focus'),
+    _start0: null,
+    _stop0: null, // the start and stop for the previous change event
+    _start1: null,
+    _stop1: null, // the start and stop for the next prepare event
+    _timeout: null,
+    _focus: null,
+    _scale: scaleTime().range([0, 1440]),
   };
 
   const _context = Object.assign(
@@ -56,7 +56,7 @@ const context = () => {
     apiStep(state)
   );
 
-  state.timeout = setTimeout(_context.start, 10);
+  state._timeout = setTimeout(_context.start, 10);
 
   const { focus } = _context;
 

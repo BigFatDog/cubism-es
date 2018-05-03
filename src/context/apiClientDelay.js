@@ -5,9 +5,8 @@ import update from './update';
 // age of the most recent displayed metric. Defaults to 1 second.
 const apiClientDelay = state => ({
   clientDelay: (_clientDelay = null) => {
-    const { clientDelay } = state;
-    if (_clientDelay === null) return clientDelay;
-    state.clientDelay = +_clientDelay;
+    if (_clientDelay === null) return state._clientDelay;
+    state._clientDelay = +_clientDelay;
     return update(state);
   },
 });
