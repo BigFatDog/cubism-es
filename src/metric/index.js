@@ -28,7 +28,7 @@ const apiMetric = context => ({
     };
 
     return Object.assign(
-      metricState,
+      {},
       apiOn(metricState),
       apiPrepare(metricState, request),
       apiValueAt(metricState),

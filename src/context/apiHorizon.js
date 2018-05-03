@@ -134,7 +134,7 @@ const runHorizon = (context, state, selection) => {
       ctx.restore();
     }
 
-    function focus(i) {
+    const focus = i => {
       if (i == null) i = width - 1;
       const value = metric_.valueAt(i);
       span.datum(value).text(isNaN(value) ? null : format);
@@ -150,7 +150,7 @@ const runHorizon = (context, state, selection) => {
     // so that it continues to update automatically.
     metric_.on('change.horizon-' + id, function(start, stop) {
       change(start, stop), focus();
-      if (ready) metric_.on('change.horizon-' + id, cubism_identity);
+      if (ready) metric_.on('change.horizon-' + id, d=>d);
     });
   });
 };
