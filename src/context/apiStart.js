@@ -28,9 +28,9 @@ const apiStart = state => ({
       setTimeout(function() {
         state.start0 = state._start1;
         state.stop0 = state._stop1;
-        console.log(state.start0, state.stop0)
+        console.log(state.start0, state.stop0);
         _scale.domain([state.start0, state.stop0]);
-        _event.call('beforechange', state, state._start1, state. _stop1);
+        _event.call('beforechange', state, state._start1, state._stop1);
         _event.call('change', state, state._start1, state._stop1);
         _event.call('focus', state, _focus);
       }, _clientDelay);
