@@ -120,19 +120,18 @@
         .attr("class", function(d) { return d + " axis"; })
         .each(function(d) { context.axis(d3.select(this)).ticks(12) });
 
-    d3.select("body").append("div")
+    const d = d3.select("body").append("div")
         .attr("class", "rule")
         .attr('id', 'rule');
-    context.rule(d3.select('#rule'))
+    context.rule(d)
 
     d3.select("body").selectAll(".horizon")
         .data(["AAPL", "BIDU", "SINA", "GOOG", "MSFT", "YHOO", "ADBE", "REDF", "INSP", "IACI", "AVID", "CCUR", "DELL", "DGII", "HPQ", "SGI", "SMCI", "SNDK", "SYNA"].map(stock))
         .enter().insert("div", ".bottom")
         .attr("class", "horizon");
 
-    d3.selectAll('.horizon').call(context.horizon
-        ).format(d3.format("+,.2p"));
-    ;
+
+    context.horizon(d3.selectAll('.horizon')).format(d3.format("+,.2p"))
 
     context.on("focus", function(i) {
         d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
@@ -142,8 +141,8 @@
     function stock(name) {
         var format = d3.timeFormat("%d-%b-%y");
         return context.metric(function(start, stop, step, callback) {
-            d3.csv("stocks/" + name + ".csv", function(rows) {
-                rows = rows.map(function(d) { return [format.parse(d.Date), +d.Open]; }).filter(function(d) { return d[1]; }).reverse();
+            d3.csv("data/stocks/" + name + ".csv").then(rows => {
+                rows = rows.map(function(d) { return [format(d.Date), +d.Open]; }).filter(function(d) { return d[1]; }).reverse();
                 var date = rows[0][0], compare = rows[400][1], value = rows[0][1], values = [value];
                 rows.forEach(function(d) {
                     while ((date = d3.timeDay.offset(date, 1)) < d[0]) values.push(value);
