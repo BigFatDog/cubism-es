@@ -83,32 +83,32 @@ const runAxis = (context, state, selection) => {
 
 const apiTicks = axisState => ({
   ticks: (...args) => {
-      axisState._axis.ticks(args);
-      return axisState;
+    axisState._axis.ticks(args);
+    return axisState;
   },
 });
 
 const apiOrient = axisSate => ({
-    orient: orient => {
-      const { context } = axisSate;
-      switch (orient) {
-        case 'top':
-            axisSate._axis = axisTop().scale(context._scale);
-            break;
-        case 'bottom':
-            axisSate._axis = axisBottom().scale(context._scale);
-            break;
-        case 'left':
-            axisSate._axis = axisLeft().scale(context._scale);
-            break;
-        case 'right':
-            axisSate._axis = axisRight().scale(context._scale);
-            break;
-        case 'default':
-            console.warn('orient shall be one of bottom|top|left|right');
-            break;
-      }
+  orient: orient => {
+    const { context } = axisSate;
+    switch (orient) {
+      case 'top':
+        axisSate._axis = axisTop().scale(context._scale);
+        break;
+      case 'bottom':
+        axisSate._axis = axisBottom().scale(context._scale);
+        break;
+      case 'left':
+        axisSate._axis = axisLeft().scale(context._scale);
+        break;
+      case 'right':
+        axisSate._axis = axisRight().scale(context._scale);
+        break;
+      case 'default':
+        console.warn('orient shall be one of bottom|top|left|right');
+        break;
     }
+  },
 });
 
 const apiAxis = context => ({

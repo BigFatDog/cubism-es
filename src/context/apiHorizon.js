@@ -14,7 +14,7 @@ const runHorizon = (context, state, selection) => {
     _scale,
     _buffer,
     _mode,
-    _format
+    _format,
   } = state;
 
   selection
