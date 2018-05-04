@@ -14,6 +14,7 @@ const runHorizon = (context, state, selection) => {
     _scale,
     _buffer,
     _mode,
+    _format
   } = state;
 
   selection
@@ -147,7 +148,7 @@ const runHorizon = (context, state, selection) => {
     const focus = i => {
       if (i == null) i = _width - 1;
       const value = metric_.valueAt(i);
-      span.datum(value).text(isNaN(value) ? null : format);
+      span.datum(value).text(isNaN(value) ? null : _format);
     };
 
     // Update the chart when the context changes.
