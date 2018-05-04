@@ -11,7 +11,7 @@
          *
          * return: low_res (60)
          */
-const find_ideal_librato_resolution = step => {
+const findIdealLibratoRFesolution = step => {
   const avail_rsts = [1, 60, 900, 3600];
   const highest_res = avail_rsts[0],
     lowest_res = avail_rsts[avail_rsts.length]; // high and lowest available resolution from librato
@@ -44,4 +44,4 @@ const find_ideal_librato_resolution = step => {
   return top_res - step < step - low_res ? top_res : low_res;
 };
 
-export default find_ideal_librato_resolution;
+export default findIdealLibratoRFesolution;
