@@ -15,7 +15,7 @@ import apiMetric from '../metric';
 import apiCube from './apiCube';
 import apiAxis from './apiAxis';
 import apiRule from './apiRule';
-import apiHorizon from './apiHorizon';
+import apiHorizon from '../horizon';
 
 import apiGangliaWeb from './apiGangliaWeb';
 import apiLibrato from '../librato';
@@ -40,10 +40,22 @@ const config = {
 
 const context = () => {
   const state = {
-    config,
+    _id: 1,
+    _step: 1e4, // ten seconds, in milliseconds
+    _size: 1440, // ten seconds, in milliseconds
+    _serverDelay: 5e3,
+    _clientDelay: 5e3,
+    _event: dispatch('prepare', 'beforechange', 'change', 'focus'),
+    _start0: null,
+    _stop0: null, // the start and stop for the previous change event
+    _start1: null,
+    _stop1: null, // the start and stop for the next prepare event
+    _timeout: null,
+    _focus: null,
+    _scale: scaleTime().range([0, 1440]),
   };
 
-  const context = Object.assign(
+  const _context = Object.assign(
     state,
     apiAxis(state),
     apiComparison(state),
@@ -60,22 +72,19 @@ const context = () => {
     apiStep(state)
   );
 
-  state.config.timeout = setTimeout(context.config.start, 10);
+  state._timeout = setTimeout(_context.start, 10);
 
-  const {
-    focus,
-    config: { size },
-  } = context;
+  const { focus } = _context;
 
-  select(window).on('keydown.context-' + ++context.config.id, function() {
+  select(window).on('keydown.context-' + ++_context._id, function() {
     switch (!event.metaKey && event.keyCode) {
       case 37: // left
-        if (focus == null) context.focus = size - 1;
-        if (focus > 0) context.focus(--context.focus);
+        if (focus == null) _context.focus = size - 1;
+        if (focus > 0) _context.focus(--_context.focus);
         break;
       case 39: // right
-        if (focus == null) context.focus = size - 2;
-        if (focus < _size - 1) context.focus(++context.focus);
+        if (focus == null) _context.focus = size - 2;
+        if (focus < size - 1) _context.focus(++_context.focus);
         break;
       default:
         return;
@@ -84,7 +93,7 @@ const context = () => {
     event.preventDefault();
   });
 
-  const cubismContext = update(context);
+  const cubismContext = update(_context);
 
   return Object.assign(
     cubismContext,
