@@ -4,8 +4,8 @@ import update from './update';
 // Defaults to 1440 (four hours at ten seconds).
 const apiSize = state => ({
   size: (_size = null) => {
-    if (_size === null) return state.size;
-    state.scale.range([0, (state.size = +_size)]);
+    if (_size === null) return state._size;
+    state._scale.range([0, (state._size = +_size)]);
     return update(state);
   },
 });

@@ -1,6 +1,6 @@
-import find_ideal_librato_resolution from './find_ideal_librato_resolution';
+import findIdealLibratoRFesolution from './findIdealLibratoRFesolution';
 
-const find_librato_resolution = (sdate, edate, step) => {
+const findLibratoResolution = (sdate, edate, step) => {
   const i_size = edate - sdate, // interval size
     month = 2419200,
     week = 604800,
@@ -8,7 +8,7 @@ const find_librato_resolution = (sdate, edate, step) => {
 
   if (i_size > month) return 3600;
 
-  const ideal_res = find_ideal_librato_resolution(step);
+  const ideal_res = findIdealLibratoRFesolution(step);
 
   /*
      * Now we have the ideal resolution, but due to the retention policies at librato, maybe we have
@@ -20,4 +20,4 @@ const find_librato_resolution = (sdate, edate, step) => {
   else return ideal_res;
 };
 
-export default find_librato_resolution;
+export default findLibratoResolution;

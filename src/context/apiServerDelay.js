@@ -4,10 +4,9 @@ import update from './update';
 // metric. This delay may result from clock skew or from delays collecting
 // metrics from various hosts. Defaults to 4 seconds.
 const apiServerDelay = state => ({
-  clientDelay: (_serverDelay = null) => {
-    const { serverDelay } = state;
-    if (_serverDelay === null) return serverDelay;
-    state.serverDelay = +_serverDelay;
+  serverDelay: (_serverDelay = null) => {
+    if (_serverDelay === null) return state._serverDelay;
+    state._serverDelay = +_serverDelay;
     return update(state);
   },
 });

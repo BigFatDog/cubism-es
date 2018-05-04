@@ -1,11 +1,11 @@
-import down_up_sampling from './down_up_sampling';
-import make_url from './make-url';
+import downUpSampling from './downUpSampling';
+import makeUrl from './makeUrl';
 
 /* All the logic to query the librato API is here */
 const request = (composite, user, token) => ({
   fire: (isdate, iedate, step, callback_done) => {
     const a_values = []; /* Store partial values from librato */
-    const full_url = make_url(isdate, iedate, step, composite);
+    const full_url = makeUrl(isdate, iedate, step, composite);
     const auth_string = 'Basic ' + btoa(user + ':' + token);
 
     /*
@@ -30,9 +30,9 @@ const request = (composite, user, token) => ({
           const still_more_values =
             'query' in data && 'next_time' in data.query;
           if (still_more_values) {
-            request(make_url(data.query.next_time, iedate, step));
+            request(makeUrl(data.query.next_time, iedate, step));
           } else {
-            const a_adjusted = down_up_sampling(isdate, iedate, step, a_values);
+            const a_adjusted = downUpSampling(isdate, iedate, step, a_values);
             callback_done(a_adjusted);
           }
         }

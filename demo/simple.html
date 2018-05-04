@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Cubism.js</title>
+<style>
+
+    @import url(//fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
+    html {
+        min-width: 1040px;
+    }
+
+    body {
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
+        margin: auto;
+        margin-top: 40px;
+        margin-bottom: 4em;
+        width: 960px;
+    }
+
+    #body {
+        position: relative;
+    }
+
+    footer {
+        font-size: small;
+        margin-top: 8em;
+    }
+
+    aside {
+        font-size: small;
+        left: 780px;
+        position: absolute;
+        width: 180px;
+    }
+
+    #body > p, li > p {
+        line-height: 1.5em;
+    }
+
+    #body > p {
+        width: 720px;
+    }
+
+    #body > blockquote {
+        width: 640px;
+    }
+
+    li {
+        width: 680px;
+    }
+
+    a {
+        color: steelblue;
+    }
+
+    a:not(:hover) {
+        text-decoration: none;
+    }
+
+    pre, code, textarea {
+        font-family: "Menlo", monospace;
+    }
+
+    code {
+        line-height: 1em;
+    }
+
+    textarea {
+        font-size: 100%;
+    }
+
+    #body > pre {
+        border-left: solid 2px #ccc;
+        padding-left: 18px;
+        margin: 2em 0 2em -20px;
+    }
+
+    .html .value,
+    .javascript .string,
+    .javascript .regexp {
+        color: #756bb1;
+    }
+
+    .html .tag,
+    .css .tag,
+    .javascript .keyword {
+        color: #3182bd;
+    }
+
+    .comment {
+        color: #636363;
+    }
+
+    .html .doctype,
+    .javascript .number {
+        color: #31a354;
+    }
+
+    .html .attribute,
+    .css .attribute,
+    .javascript .class,
+    .javascript .special {
+        color: #e6550d;
+    }
+
+    svg {
+        font: 10px sans-serif;
+    }
+
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    sup, sub {
+        line-height: 0;
+    }
+
+    q:before,
+    blockquote:before {
+        content: "“";
+    }
+
+    q:after,
+    blockquote:after {
+        content: "”";
+    }
+
+    blockquote:before {
+        position: absolute;
+        left: 2em;
+    }
+
+    blockquote:after {
+        position: absolute;
+    }
+
+    h1 {
+        font-size: 96px;
+        margin-top: .3em;
+        margin-bottom: 0;
+    }
+
+    h1 + h2 {
+        margin-top: 0;
+    }
+
+    h2 {
+        font-weight: 400;
+        font-size: 28px;
+    }
+
+    h1, h2 {
+        font-family: "Yanone Kaffeesatz";
+        text-rendering: optimizeLegibility;
+    }
+
+    #logo {
+        width: 122px;
+        height: 31px;
+    }
+
+    #fork {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+    }
+
+    .axis text {
+        -webkit-transition: fill-opacity 250ms linear;
+    }
+
+    .axis path {
+        display: none;
+    }
+
+    .axis line {
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .horizon {
+        border-bottom: solid 1px #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .horizon {
+        border-top: solid 1px #000;
+        border-bottom: solid 1px #000;
+    }
+
+    .horizon + .horizon {
+        border-top: none;
+    }
+
+    .horizon canvas {
+        display: block;
+    }
+
+    .horizon .title,
+    .horizon .value {
+        bottom: 0;
+        line-height: 30px;
+        margin: 0 6px;
+        position: absolute;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        white-space: nowrap;
+    }
+
+    .horizon .title {
+        left: 0;
+    }
+
+    .horizon .value {
+        right: 0;
+    }
+
+    .line {
+        background: #000;
+        opacity: .2;
+        z-index: 2;
+    }
+
+
+    #example1 { min-height: 155px; }
+    #example2a { min-height: 153px; }
+    #example2b { min-height: 255px; }
+
+</style>
+<div id="body">
+    <div id="example1"></div>
+</div>
+
+<script src="lib/d3.v5.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.js"></script>
+<script src="./cubism-es.standalone.js"></script>
+<script>
+
+    function random(name) {
+        var value = 0,
+            values = [],
+            i = 0,
+            last;
+        return context.metric(function(start, stop, step, callback) {
+            start = +start, stop = +stop;
+            if (isNaN(last)) last = start;
+            while (last < stop) {
+                last += step;
+                value = Math.max(-10, Math.min(10, value + .8 * Math.random() - .4 + .2 * Math.cos(i += .2)));
+                values.push(value);
+            }
+
+            callback(null, values = values.slice((start - stop) / step));
+        }, name);
+    }
+
+</script>
+<script>
+
+    var context = cubism.context()
+        .serverDelay(0)
+        .clientDelay(0)
+        .step(1e3)
+        .size(960);
+
+    var foo = random("foo"),
+        bar = random("bar");
+
+    console.log(foo.add(bar));
+    console.log(foo.subtract(bar));
+
+    d3.select("#example1").call(function(div) {
+
+        div.append("div")
+            .attr("class", "axis")
+            // .call(context.axis());
+        context.axis(d3.selectAll('.axis'))
+
+        const h1 = div.selectAll(".horizon")
+            // .data([foo, bar])
+            .data([foo, bar, foo.add(bar), foo.subtract(bar)])
+
+                .enter().append("div")
+            .attr("class", "horizon");
+
+        context.horizon(h1).extent([-20, 20])
+            // .call(context.horizon()._extent([-20, 20]));
+
+        div.append("div")
+            .attr("class", "rule");
+
+        context.rule(div.selectAll(
+            '.rule'
+        ))
+            // .call(context.rule());
+
+    });
+
+    d3.select("#example2a").call(function(div) {
+        div.datum(foo);
+
+        const a = div.append("div")
+            .attr("class", "horizon");
+
+        context.horizon(a)
+            .height(120)
+            .mode("mirror")
+            .colors(["#bdd7e7","#bae4b3"])
+            .title("Area (120px)")
+            .extent([-10, 10]);
+
+        const b = div.append("div")
+            .attr("class", "horizon");
+
+        context.horizon(b)
+            .height(30)
+            .mode("mirror")
+            .colors(["#bdd7e7","#bae4b3"])
+            .title("Area (30px)")
+            .extent([-10, 10]);
+    });
+
+    d3.select("#example2b").call(function(div) {
+        div.datum(foo);
+
+        const c = div.append("div")
+            .attr("class", "horizon");
+
+        context.horizon(c)
+            .height(120)
+            .colors(["#bdd7e7","#bae4b3"])
+            .title("Horizon, 1-band (120px)")
+            .extent([-10, 10])
+
+        const d = div.append("div")
+            .attr("class", "horizon")
+        context.horizon(d)
+            .height(60)
+            .colors(["#6baed6","#bdd7e7","#bae4b3","#74c476"])
+            .title("Horizon, 2-band (60px)")
+            .extent([-10, 10])
+
+        const e = div.append("div")
+            .attr("class", "horizon");
+
+
+        context.horizon(e)
+            .height(40)
+            .colors(["#3182bd","#6baed6","#bdd7e7","#bae4b3","#74c476","#31a354"])
+            .title("Horizon, 3-band (40px)")
+            .extent([-10, 10])
+
+        const f = div.append("div")
+            .attr("class", "horizon");
+
+        context.horizon(f)
+            .height(30)
+            .colors(["#08519c","#3182bd","#6baed6","#bdd7e7","#bae4b3","#74c476","#31a354","#006d2c"])
+            .title("Horizon, 4-band (30px)")
+            .extent([-10, 10])
+
+    });
+
+    // On mousemove, reposition the chart values to match the rule.
+    context.on("focus", function(i) {
+        d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
+    });
+
+</script>

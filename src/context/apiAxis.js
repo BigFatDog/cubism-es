@@ -1,5 +1,5 @@
 import { timeFormat } from 'd3-time-format';
-import { axisBottom } from 'd3-axis';
+import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
 import { select } from 'd3-selection';
 
 const formatSeconds = timeFormat('%I:%M:%S %p');
@@ -34,15 +34,14 @@ const apiFocusFormat = axisState => ({
   },
 });
 
-const runAxis = (state, selection) => {
-  const { _axis, scale, format, id, context } = state;
-
-  let tick;
+const runAxis = (context, state, selection) => {
+  const { _axis, scale, format, id, size } = state;
+  let tick = null;
 
   const g = selection
     .append('svg')
     .datum({ id })
-    .attr('width', context.size())
+    .attr('width', size)
     .attr('height', Math.max(28, -_axis.tickSize()))
     .append('g')
     .attr('transform', 'translate(0,' + 4 + ')')
@@ -82,22 +81,55 @@ const runAxis = (state, selection) => {
   });
 };
 
+const apiTicks = axisState => ({
+  ticks: (...args) => {
+    axisState._axis.ticks(args);
+    return axisState;
+  },
+});
+
+const apiOrient = axisSate => ({
+  orient: orient => {
+    const { context } = axisSate;
+    switch (orient) {
+      case 'top':
+        axisSate._axis = axisTop().scale(context._scale);
+        break;
+      case 'bottom':
+        axisSate._axis = axisBottom().scale(context._scale);
+        break;
+      case 'left':
+        axisSate._axis = axisLeft().scale(context._scale);
+        break;
+      case 'right':
+        axisSate._axis = axisRight().scale(context._scale);
+        break;
+      case 'default':
+        console.warn('orient shall be one of bottom|top|left|right');
+        break;
+    }
+  },
+});
+
 const apiAxis = context => ({
   axis: selection => {
     const axisState = {
       context,
-      scale: context.scale,
-      _axis: axisBottom().scale(context.scale),
+      size: context._size,
+      scale: context._scale,
+      _axis: axisBottom().scale(context._scale),
       format: formatDefault(context),
       id: ++context._id,
     };
 
-    runAxis(axisState, selection);
+    runAxis(context, axisState, selection);
 
     return Object.assign(
       axisState,
       apiRemove(axisState),
-      apiFocusFormat(axisState)
+      apiFocusFormat(axisState),
+      apiTicks(axisState),
+      apiOrient(axisState)
     );
   },
 });

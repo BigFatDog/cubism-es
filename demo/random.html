@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+    body {
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
+        margin: 30px auto;
+        width: 1280px;
+        position: relative;
+    }
+
+    header {
+        padding: 6px 0;
+    }
+
+    .group {
+        margin-bottom: 1em;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+        position: fixed;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .axis text {
+        -webkit-transition: fill-opacity 250ms linear;
+    }
+
+    .axis path {
+        display: none;
+    }
+
+    .axis line {
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .axis.top {
+        background-image: linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -o-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -moz-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -webkit-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -ms-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        top: 0px;
+        padding: 0 0 24px 0;
+    }
+
+    .axis.bottom {
+        background-image: linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -o-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -moz-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -webkit-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -ms-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        bottom: 0px;
+        padding: 24px 0 0 0;
+    }
+
+    .horizon {
+        border-bottom: solid 1px #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .horizon {
+        border-top: solid 1px #000;
+        border-bottom: solid 1px #000;
+    }
+
+    .horizon + .horizon {
+        border-top: none;
+    }
+
+    .horizon canvas {
+        display: block;
+    }
+
+    .horizon .title,
+    .horizon .value {
+        bottom: 0;
+        line-height: 30px;
+        margin: 0 6px;
+        position: absolute;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        white-space: nowrap;
+    }
+
+    .horizon .title {
+        left: 0;
+    }
+
+    .horizon .value {
+        right: 0;
+    }
+
+    .line {
+        background: #000;
+        z-index: 2;
+    }
+
+</style>
+<script src="lib/d3.v5.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.js"></script>
+<script src="./cubism-es.standalone.js"></script>
+<body id="demo">
+<script>
+
+    var context = cubism.context()
+        .step(1e4)
+        .size(1280);
+
+    d3.select("#demo").selectAll(".axis")
+        .data(["top", "bottom"])
+        .enter().append("div")
+        .attr("class", function(d) { return d + " axis"; })
+        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d); });
+
+    const r = d3.select("body").append("div")
+        .attr("class", "rule");
+
+    context.rule(r);
+
+    const h = d3.select("body").selectAll(".horizon")
+        .data(d3.range(1, 50).map(random))
+        .enter().insert("div", ".bottom")
+        .attr("class", "horizon");
+    context.horizon(h).extent([-10, 10])
+
+    context.on("focus", function(i) {
+        d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
+    });
+
+    // Replace this with context.graphite and graphite.metric!
+    function random(x) {
+        var value = 0,
+            values = [],
+            i = 0,
+            last;
+        return context.metric(function(start, stop, step, callback) {
+            start = +start, stop = +stop;
+            if (isNaN(last)) last = start;
+            while (last < stop) {
+                last += step;
+                value = Math.max(-10, Math.min(10, value + .8 * Math.random() - .4 + .2 * Math.cos(i += x * .02)));
+                values.push(value);
+            }
+            callback(null, values = values.slice((start - stop) / step));
+        }, x);
+    }
+
+</script>

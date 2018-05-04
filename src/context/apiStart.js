@@ -1,39 +1,41 @@
 const apiStart = state => ({
   start: () => {
     const {
-      timeout,
-      start1,
-      stop1,
-      serverDelay,
-      clientDelay,
-      step,
-      event,
-      scale,
-      stop0,
-      start0,
+      _timeout,
+      _stop1,
+      _serverDelay,
+      _clientDelay,
+      _step,
+      _event,
+      _scale,
+      _size,
+      _focus,
     } = state;
 
-    if (timeout) clearTimeout(timeout);
-    let delay = +stop1 + serverDelay - Date.now();
+    if (_timeout) clearTimeout(_timeout);
+    let delay = +_stop1 + _serverDelay - Date.now();
 
-    // If we're too late for the first prepare event, skip it.
-    if (delay < clientDelay) delay += step;
+    // If we're too late for the first prepare _event, skip it.
+    if (delay < _clientDelay) delay += _step;
 
     const prepare = () => {
-      state.stop1 = new Date(
-        Math.floor((Date.now() - serverDelay) / step) * step
+      state._stop1 = new Date(
+        Math.floor((Date.now() - _serverDelay) / _step) * _step
       );
-      state.start1 = new Date(stop1 - size * step);
-      event.prepare.call(context, start1, stop1);
+      state._start1 = new Date(state._stop1 - _size * _step);
+      _event.call('prepare', state, state._start1, state._stop1);
 
       setTimeout(function() {
-        scale.domain([(state.start0 = start1), (state.stop0 = stop1)]);
-        event.beforechange.call(context, start1, stop1);
-        event.change.call(context, start1, stop1);
-        event.focus.call(context, focus);
-      }, clientDelay);
+        state.start0 = state._start1;
+        state.stop0 = state._stop1;
+        console.log(state.start0, state.stop0);
+        _scale.domain([state.start0, state.stop0]);
+        _event.call('beforechange', state, state._start1, state._stop1);
+        _event.call('change', state, state._start1, state._stop1);
+        _event.call('focus', state, _focus);
+      }, _clientDelay);
 
-      state.timeout = setTimeout(prepare, step);
+      state.timeout = setTimeout(prepare, _step);
     };
 
     state.timeout = setTimeout(prepare, delay);

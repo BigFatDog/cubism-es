@@ -3,7 +3,7 @@
  * cubism expects for a particular context: We have to perform down/up
  * sampling
  */
-const down_up_sampling = (isdate, iedate, step, librato_mm) => {
+const downUpSampling = (isdate, iedate, step, librato_mm) => {
   const av = [];
 
   for (let i = isdate; i <= iedate; i += step) {
@@ -29,4 +29,4 @@ const down_up_sampling = (isdate, iedate, step, librato_mm) => {
   return av;
 };
 
-export default down_up_sampling;
+export default downUpSampling;

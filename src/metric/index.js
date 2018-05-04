@@ -6,31 +6,40 @@ import apiOn from './apiOn';
 import apiPrepare from './apiPrepare';
 import apiShift from './apiShift';
 import apiValueAt from './apiValueAt';
+import apiOperator from './apiOperator';
 
-const apiMetric = context => (request, name) => {
-  const metricState = {
-    context,
-    id: '.metric-' + ++context._id,
-    start: -Infinity,
-    stop: null,
-    step: context.step(),
-    size: context.size(),
-    values: [],
-    event: dispatch('change'),
-    listening: 0,
-    fetching: false,
-    valueAt: () => NaN,
-  };
+const apiToString = name => ({
+  toString: () => name,
+});
 
-  return Object.assign(
-    metricState,
-    apiOn(metricState),
-    apiPrepare(metricState, request),
-    apiValueAt(metricState),
-    apiAlias(metricState),
-    apiShift(metricState, request),
-    apiExtent(metricState)
-  );
-};
+const apiMetric = context => ({
+  metric: (request, name) => {
+    const metricState = {
+      context,
+      _id: '.metric-' + ++context._id,
+      _start: -Infinity,
+      _stop: null,
+      _step: context.step(),
+      _size: context.size(),
+      _values: [],
+      _event: dispatch('change'),
+      _listening: 0,
+      _fetching: false,
+    };
+
+    const metric = Object.assign(
+      metricState,
+      apiOn(metricState, request),
+      apiPrepare(metricState, request),
+      apiValueAt(metricState),
+      apiAlias(metricState),
+      apiShift(metricState, request),
+      apiExtent(metricState),
+      apiToString(name)
+    );
+
+    return Object.assign(metric, apiOperator(metric));
+  },
+});
 
 export default apiMetric;
