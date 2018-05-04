@@ -22,6 +22,7 @@ const runComparison = (state, selection) => {
 
   selection
     .on('mousemove.comparison', function() {
+      // todo, why directly d3.mouse doesn't work?
       context.focus(Math.round(d3.mouse(this)[0]));
     })
     .on('mouseout.comparison', () => context.focus(null));

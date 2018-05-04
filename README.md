@@ -1,8 +1,14 @@
-# Incubation
-Not production ready
+# Status
+the following samples work, you can try them by downloading this project and running `npm install` and `npm run dev`:
+
+* Mike, Bostock's [stock demo](https://bost.ocks.org/mike/cubism/intro/demo-stocks.html)
+* Patrick, Thompson's [Discrete Cubism](http://bl.ocks.org/patrickthompson/4d508eb3b8feac90762e)
+* Square Inc's [demo](http://square.github.io/cubism/)
+* Mike, Bostock's [random demo](https://bost.ocks.org/mike/cubism/intro/demo-random.html)
+
 # cubism-es
 
-cubism-es is D3V4 version of [cubism](https://github.com/square/cubism). The fist milestone is to
+cubism-es is D3V5 version of [cubism](https://github.com/square/cubism). The fist milestone is to
 provide identical functions to the original [cubism](https://github.com/square/cubism). After that,
 more features wil be developed
 
@@ -27,7 +33,7 @@ import { context } from 'cubism-es';
 2. Run commands
 ```
 npm install         // install dependencies
-npm run dev         // view demos in web browser at localhost:3005
+npm run dev         // view demos in web browser at localhost:3004
 npm run build       // build
 npm run test        // run tests only
 npm run test:cover  // run tests and view coverage report
