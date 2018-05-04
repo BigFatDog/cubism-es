@@ -19,7 +19,8 @@ const runHorizon = (context, state, selection) => {
 
   selection
     .on('mousemove.horizon', function() {
-      context.focus(Math.round(mouse(this)[0]));
+      // todo: why directly importing mouse doesn't work here?
+      context.focus(Math.round(d3.mouse(this)[0]));
     })
     .on('mouseout.horizon', () => context.focus(null));
 

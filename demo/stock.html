@@ -112,13 +112,11 @@
         .size(1280)
         .stop();
 
-    console.log(context);
-
     d3.select("#demo").selectAll(".axis")
-        .data([ "bottom"])
+        .data(['top', "bottom"])
         .enter().append("div")
         .attr("class", function(d) { return d + " axis"; })
-        .each(function(d) { context.axis(d3.select(this)).ticks(12) });
+        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d) });
 
     const d = d3.select("body").append("div")
         .attr("class", "rule")
@@ -139,7 +137,7 @@
 
     // Replace this with context.graphite and graphite.metric!
     function stock(name) {
-        var format = d3.timeFormat("%d-%b-%y");
+        var format = d3.timeParse("%d-%b-%y");
         return context.metric(function(start, stop, step, callback) {
             d3.csv("data/stocks/" + name + ".csv").then(rows => {
                 rows = rows.map(function(d) { return [format(d.Date), +d.Open]; }).filter(function(d) { return d[1]; }).reverse();
