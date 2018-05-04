@@ -279,8 +279,8 @@
         context.axis(d3.selectAll('.axis'))
 
         const h1 = div.selectAll(".horizon")
-            .data([foo, bar])
-            // .data([foo, bar, foo.add(bar), foo.subtract(bar)])
+            // .data([foo, bar])
+            .data([foo, bar, foo.add(bar), foo.subtract(bar)])
 
                 .enter().append("div")
             .attr("class", "horizon");

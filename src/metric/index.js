@@ -6,6 +6,7 @@ import apiOn from './apiOn';
 import apiPrepare from './apiPrepare';
 import apiShift from './apiShift';
 import apiValueAt from './apiValueAt';
+import apiOperator from './apiOperator';
 
 const apiToString = name => ({
   toString: () => name,
@@ -27,7 +28,7 @@ const apiMetric = context => ({
       _valueAt: () => NaN,
     };
 
-    return Object.assign(
+    const metric = Object.assign(
       metricState,
       apiOn(metricState, request),
       apiPrepare(metricState, request),
@@ -37,6 +38,8 @@ const apiMetric = context => ({
       apiExtent(metricState),
       apiToString(name)
     );
+
+    return Object.assign(metric, apiOperator(metric));
   },
 });
 
