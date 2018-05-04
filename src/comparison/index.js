@@ -7,17 +7,18 @@ import apiRemove from './apiRemove';
 import apiMisc from './apiMisc';
 
 const initState = context => ({
-  width: context.size(),
-  height: 120,
-  scale: scaleLinear().interpolate(interpolateRound),
-  primary: d => d[0],
-  secondary: d => d[1],
-  extent: null,
-  title: d => d,
-  formatPrimary: format('.2s'),
-  formatChange: format('+.0%'),
-  colors: ['#9ecae1', '#225b84', '#a1d99b', '#22723a'],
-  strokeWidth: 1.5,
+  context,
+  _width: context.size(),
+  _height: 120,
+  _scale: scaleLinear().interpolate(interpolateRound),
+  _primary: d => d[0],
+    _secondary: d => d[1],
+    _extent: null,
+    _title: d => d,
+    _formatPrimary: format('.2s'),
+    _formatChange: format('+.0%'),
+    _colors: ['#9ecae1', '#225b84', '#a1d99b', '#22723a'],
+    _strokeWidth: 1.5,
 });
 
 const apiComparison = context => ({

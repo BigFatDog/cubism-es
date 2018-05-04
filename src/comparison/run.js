@@ -6,34 +6,35 @@ const roundOdd = i => ((i + 1) & 0xfffffe) - 1;
 
 const runComparison = (state, selection) => {
   const {
-    width,
-    height,
-    scale,
-    primary,
-    secondary,
-    extent,
-    title,
-    formatPrimary,
-    formatChange,
-    colors,
-    strokeWidth,
+    context,
+    _width,
+    _height,
+    _scale,
+    _primary,
+    _secondary,
+    _extent,
+    _title,
+    _formatPrimary,
+    _formatChange,
+    _colors,
+    _strokeWidth,
   } = state;
 
   selection
     .on('mousemove.comparison', function() {
-      context.focus(Math.round(mouse(this)[0]));
+      context.focus(Math.round(d3.mouse(this)[0]));
     })
     .on('mouseout.comparison', () => context.focus(null));
 
   selection
     .append('canvas')
-    .attr('width', width)
-    .attr('height', height);
+    .attr('width', _width)
+    .attr('height', _height);
 
   selection
     .append('span')
     .attr('class', 'title')
-    .text(title);
+    .text(_title);
 
   selection.append('span').attr('class', 'value primary');
   selection.append('span').attr('class', 'value change');
@@ -41,12 +42,12 @@ const runComparison = (state, selection) => {
   selection.each(function(d, i) {
     const id = uuid(),
       primary_ =
-        typeof primary === 'function' ? primary.call(this, d, i) : primary,
+        typeof _primary === 'function' ? _primary.call(this, d, i) : _primary,
       secondary_ =
-        typeof secondary === 'function'
-          ? secondary.call(this, d, i)
-          : secondary,
-      extent_ = typeof extent === 'function' ? extent.call(this, d, i) : extent,
+        typeof _secondary === 'function'
+          ? _secondary.call(this, d, i)
+          : _secondary,
+      extent_ = typeof _extent === 'function' ? _extent.call(this, d, i) : _extent,
       div = select(this),
       canvas = div.select('canvas'),
       spanPrimary = div.select('.value.primary'),
@@ -59,66 +60,66 @@ const runComparison = (state, selection) => {
 
     function change(start, stop) {
       canvasContext.save();
-      canvasContext.clearRect(0, 0, width, height);
+      canvasContext.clearRect(0, 0, _width, _height);
 
       // update the scale
       const primaryExtent = primary_.extent(),
         secondaryExtent = secondary_.extent(),
         extent = extent_ == null ? primaryExtent : extent_;
-      scale.domain(extent).range([height, 0]);
+      _scale.domain(extent).range([_height, 0]);
       ready = primaryExtent.concat(secondaryExtent).every(isFinite);
 
       // consistent overplotting
       const round = (start / context.step()) & 1 ? roundOdd : roundEven;
 
       // positive changes
-      canvasContext.fillStyle = colors[2];
-      for (let i = 0, n = width; i < n; ++i) {
-        const y0 = scale(primary_.valueAt(i)),
-          y1 = scale(secondary_.valueAt(i));
+      canvasContext.fillStyle = _colors[2];
+      for (let i = 0, n = _width; i < n; ++i) {
+        const y0 = _scale(primary_.valueAt(i)),
+          y1 = _scale(secondary_.valueAt(i));
         if (y0 < y1) canvasContext.fillRect(round(i), y0, 1, y1 - y0);
       }
 
       // negative changes
-      canvasContext.fillStyle = colors[0];
+      canvasContext.fillStyle = _colors[0];
       for (i = 0; i < n; ++i) {
-        const y0 = scale(primary_.valueAt(i)),
-          y1 = scale(secondary_.valueAt(i));
+        const y0 = _scale(primary_.valueAt(i)),
+          y1 = _scale(secondary_.valueAt(i));
         if (y0 > y1) canvasContext.fillRect(round(i), y1, 1, y0 - y1);
       }
 
       // positive values
-      canvasContext.fillStyle = colors[3];
+      canvasContext.fillStyle = _colors[3];
       for (i = 0; i < n; ++i) {
-        const y0 = scale(primary_.valueAt(i)),
-          y1 = scale(secondary_.valueAt(i));
-        if (y0 <= y1) canvasContext.fillRect(round(i), y0, 1, strokeWidth);
+        const y0 = _scale(primary_.valueAt(i)),
+          y1 = _scale(secondary_.valueAt(i));
+        if (y0 <= y1) canvasContext.fillRect(round(i), y0, 1, _strokeWidth);
       }
 
       // negative values
-      canvasContext.fillStyle = colors[1];
+      canvasContext.fillStyle = _colors[1];
       for (i = 0; i < n; ++i) {
-        const y0 = scale(primary_.valueAt(i)),
-          y1 = scale(secondary_.valueAt(i));
+        const y0 = _scale(primary_.valueAt(i)),
+          y1 = _scale(secondary_.valueAt(i));
         if (y0 > y1)
-          canvasContext.fillRect(round(i), y0 - strokeWidth, 1, strokeWidth);
+          canvasContext.fillRect(round(i), y0 - _strokeWidth, 1, _strokeWidth);
       }
 
       canvasContext.restore();
     }
 
-    const focus = (i = width - 1) => {
+    const focus = (i = _width - 1) => {
       const valuePrimary = primary_.valueAt(i),
         valueSecondary = secondary_.valueAt(i),
         valueChange = (valuePrimary - valueSecondary) / valueSecondary;
 
       spanPrimary
         .datum(valuePrimary)
-        .text(isNaN(valuePrimary) ? null : formatPrimary);
+        .text(isNaN(valuePrimary) ? null : _formatPrimary);
 
       spanChange
         .datum(valueChange)
-        .text(isNaN(valueChange) ? null : formatChange)
+        .text(isNaN(valueChange) ? null : _formatChange)
         .attr(
           'class',
           'value change ' +

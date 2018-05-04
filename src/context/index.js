@@ -20,7 +20,7 @@ import apiHorizon from './apiHorizon';
 import apiGangliaWeb from './apiGangliaWeb';
 import apiLibrato from '../librato';
 import apiGraphite from './apiGraphite';
-import apiComparison from './apiComparison';
+import apiComparison from '../comparison';
 
 const config = {
   id: 1,
