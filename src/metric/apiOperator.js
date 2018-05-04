@@ -1,34 +1,18 @@
 const genericOperate = (name, operate) => (state, metric) => {
-    const base = Object.assign(state, {
-        _right: metric,
-    });
-
-    const withOperator = Object.assign(base, {
-        valueAt: i => {
-            const { _right } = base;
-            return operate(state.valueAt(i), _right.valueAt(i));
-        },
-        toString: () => {
-            const { _right } = base;
-            return `${base} ${name} ${_right}`
-        },
+    return Object.assign({}, state, {
+        valueAt: i => operate(state.valueAt(i), metric.valueAt(i)),
+        toString: () => `${state} ${name} ${metric}`,
         on: (type, listener = null) => {
-            const { _right } = base;
             if (listener === null) return state.on(type);
             state.on(type, listener);
-            _right.on(type, listener)
+            metric.on(type, listener)
         }
     });
-
-    return Object.assign(withOperator, {
-        shift: offset => {
-            const {  _right } = withOperator;
-            const m = withOperator.shift(offset);
-            m._right = _right.shift(offset);
-            return m;
-        },
-    })
 }
+
+const apiShift = (name, operate) => (state, metric) => ({
+    shift: offset => genericOperate(name, operate)(state.shift(offset), metric.shift(offset)),
+})
 
 const apiOperator = state => ({
     add: metric => genericOperate('+', (a, b) => a + b)(state, metric),

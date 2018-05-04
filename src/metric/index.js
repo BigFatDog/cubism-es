@@ -25,7 +25,6 @@ const apiMetric = context => ({
       _event: dispatch('change'),
       _listening: 0,
       _fetching: false,
-      _valueAt: () => NaN,
     };
 
     const metric = Object.assign(
