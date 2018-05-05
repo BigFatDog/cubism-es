@@ -5,6 +5,7 @@ the following samples work, you can try them by downloading this project and run
 * Patrick, Thompson's [Discrete Cubism](http://bl.ocks.org/patrickthompson/4d508eb3b8feac90762e)
 * Square Inc's [demo](http://square.github.io/cubism/)
 * Mike, Bostock's [random demo](https://bost.ocks.org/mike/cubism/intro/demo-random.html)
+* Comparison
 
 # cubism-es
 

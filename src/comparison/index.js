@@ -12,13 +12,13 @@ const initState = context => ({
   _height: 120,
   _scale: scaleLinear().interpolate(interpolateRound),
   _primary: d => d[0],
-    _secondary: d => d[1],
-    _extent: null,
-    _title: d => d,
-    _formatPrimary: format('.2s'),
-    _formatChange: format('+.0%'),
-    _colors: ['#9ecae1', '#225b84', '#a1d99b', '#22723a'],
-    _strokeWidth: 1.5,
+  _secondary: d => d[1],
+  _extent: null,
+  _title: d => d,
+  _formatPrimary: format('.2s'),
+  _formatChange: format('+.0%'),
+  _colors: ['#9ecae1', '#225b84', '#a1d99b', '#22723a'],
+  _strokeWidth: 1.5,
 });
 
 const apiComparison = context => ({
