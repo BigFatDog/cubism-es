@@ -48,7 +48,8 @@ const runComparison = (state, selection) => {
         typeof _secondary === 'function'
           ? _secondary.call(this, d, i)
           : _secondary,
-      extent_ = typeof _extent === 'function' ? _extent.call(this, d, i) : _extent,
+      extent_ =
+        typeof _extent === 'function' ? _extent.call(this, d, i) : _extent,
       div = select(this),
       canvas = div.select('canvas'),
       spanPrimary = div.select('.value.primary'),
