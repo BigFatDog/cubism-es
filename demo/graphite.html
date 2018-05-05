@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Klout SwimLanes</title>
+<style>
+    @import url(bootstrap.css);
+    body {
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
+        margin: 30px auto;
+        width: 1440px;
+        position: relative;
+    }
+
+    header {
+        padding: 6px 0;
+    }
+
+    .group {
+        margin-bottom: 1em;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+        # position: fixed;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .axis text {
+        -webkit-transition: fill-opacity 250ms linear;
+    }
+
+    .axis path {
+        display: none;
+    }
+
+    .axis line {
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .axis.top {
+        background-image: linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -o-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -moz-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -webkit-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -ms-linear-gradient(top, #fff 0%, rgba(255,255,255,0) 100%);
+        top: 0px;
+        #padding: 0 0 24px 0;
+    }
+
+    .axis.bottom {
+        background-image: linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -o-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -moz-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -webkit-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        background-image: -ms-linear-gradient(bottom, #fff 0%, rgba(255,255,255,0) 100%);
+        bottom: 0px;
+        #padding: 24px 0 0 0;
+    }
+
+    .horizon {
+        border-bottom: solid 1px #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .horizon {
+        border-top: solid 1px #000;
+        border-bottom: solid 1px #000;
+    }
+
+    .horizon + .horizon {
+        border-top: none;
+    }
+
+    .horizon canvas {
+        display: block;
+    }
+
+    .horizon .title,
+    .horizon .value {
+        bottom: 0;
+        line-height: 30px;
+        margin: 0 6px;
+        position: absolute;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5);
+        white-space: nowrap;
+    }
+
+    .horizon .title {
+        left: 0;
+    }
+
+    .horizon .value {
+        right: 0;
+    }
+
+    .line {
+        background: #000;
+        opacity: .2;
+        z-index: 2;
+    }
+
+    @media all and (max-width: 1439px) {
+        body { margin: 0px auto; }
+        .axis { position: static; }
+        .axis.top, .axis.bottom { padding: 0; }
+    }
+    body {
+        padding-top: 20px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+</style>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        Graphite Metrics
+    </div>
+</div>
+<script src="lib/d3.v5.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.js"></script>
+<script src="./cubism-es.standalone.js"></script>
+
+<script>
+    var context = cubism.context()
+        .serverDelay(15 * 1000) // allow 15 seconds of collection lag
+        .step(15000) // fifteen seconds per value
+        .size(1440); // fetch 1440 values (720p)
+    var graphite = context.graphite("http://graphite");
+    var api_metrics = [
+        graphite.metric("my.graphite.metric1").alias("my_name1"),
+        graphite.metric("my.graphite.metric2").alias("my_name2"),
+        graphite.metric("my.graphite.metric3").alias("my_name3"),
+        graphite.metric("my.graphite.metric4").alias("my_name4")
+    ];
+    var data_metrics = [
+        graphite.metric("my.graphite.metric").alias("my_name"),
+        graphite.metric("my.graphite.metric2").alias("my_name2")
+    ];
+    d3.select("body").selectAll(".axis")
+        .data(["top", "bottom"])
+        .enter().append("div").attr("class", "fluid-row")
+        .attr("class", function(d) { return d + " axis"; })
+        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d) });
+    const c = d3.select("body").append("div")
+        .attr("class", "rule")
+    context.rule(c);
+    const a = d3.select("body").selectAll(".horizon")
+        .data(api_metrics)
+        .enter().insert("div", ".bottom")
+        .attr("class", "horizon");
+    context.horizon(a)
+        .colors(["#08519c", "#*82bd", "#6baed6", "#fee6ce", "#fdae6b", "#e6550d" ])
+        .extent([-1000, 1000])
+    const b = d3.select("body").selectAll(".horizon2")
+        .data(data_metrics)
+        .enter().insert("div", ".bottom")
+        .attr("class", "horizon");
+
+    context.horizon(b).colors(["#ddic77", "#c994c7", "#e7eief","#efedf5", "#bcbddc", "#756bb1" ]).extent([-1000, 1000])
+    context.on("focus", function(i) {
+        d3.selectAll(".value").style("right", i == null ? null : context.size() - 1 - i + "px");
+    });
+</script>

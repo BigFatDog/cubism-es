@@ -21,7 +21,7 @@ const DateFormatter = time => Math.floor(time / 1000);
 const apiGraphite = context => ({
   graphite: (host = '') => {
     return {
-      toString: host, // Returns the graphite host.
+      toString: () => host, // Returns the graphite host.
       find: (pattern, callback) => {
         json(
           host +
