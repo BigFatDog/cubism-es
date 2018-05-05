@@ -10,15 +10,15 @@ const apiRemove = (ruleState, selection) => ({
 });
 
 const apiMetric = ruleState => ({
-  metric: (_metric = null) => {
-    if (_metric === null) return ruleState._metric;
-    ruleState._metric = _metric;
+  metric: (metric = null) => {
+    if (metric === null) return ruleState.metric;
+    ruleState.metric = metric;
     return ruleState;
   },
 });
 
 const runRule = (state, selection) => {
-  const { context, _metric } = state;
+  const { context, metric } = state;
   const id = ++context._id;
 
   const line = selection
@@ -32,7 +32,7 @@ const runRule = (state, selection) => {
     .style('pointer-events', 'none');
 
   selection.each((d, i) => {
-    const metric_ = typeof _metric === 'function' ? _metric(d, i) : _metric;
+    const metric_ = typeof metric === 'function' ? metric(d, i) : metric;
 
     if (!metric_) return;
 
@@ -76,7 +76,7 @@ const apiRule = context => ({
   rule: selection => {
     const state = {
       context,
-      _metric: d => d,
+      metric: d => d,
     };
 
     runRule(state, selection);
