@@ -31,7 +31,7 @@ const runRule = (state, selection) => {
     .style('width', '1px')
     .style('pointer-events', 'none');
 
-  selection.each(function(d, i) {
+  selection.each((d, i) => {
     const metric_ = typeof _metric === 'function' ? _metric(d, i) : _metric;
 
     if (!metric_) return;
@@ -64,7 +64,7 @@ const runRule = (state, selection) => {
     metric_.on('change.rule-' + id, change);
   });
 
-  context.on('focus.rule-' + id, function(i) {
+  context.on('focus.rule-' + id, i => {
     line
       // .datum(i)
       .style('display', i == null ? 'none' : null)
