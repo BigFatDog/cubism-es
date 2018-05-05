@@ -84,7 +84,7 @@ const runComparison = (state, selection) => {
 
       // negative changes
       canvasContext.fillStyle = _colors[0];
-      for (i = 0; i < n; ++i) {
+      for (let i = 0, n = _width; i < n; ++i) {
         const y0 = _scale(primary_.valueAt(i)),
           y1 = _scale(secondary_.valueAt(i));
         if (y0 > y1) canvasContext.fillRect(round(i), y1, 1, y0 - y1);
@@ -92,7 +92,7 @@ const runComparison = (state, selection) => {
 
       // positive values
       canvasContext.fillStyle = _colors[3];
-      for (i = 0; i < n; ++i) {
+      for (let i = 0, n = _width; i < n; ++i) {
         const y0 = _scale(primary_.valueAt(i)),
           y1 = _scale(secondary_.valueAt(i));
         if (y0 <= y1) canvasContext.fillRect(round(i), y0, 1, _strokeWidth);
@@ -100,7 +100,7 @@ const runComparison = (state, selection) => {
 
       // negative values
       canvasContext.fillStyle = _colors[1];
-      for (i = 0; i < n; ++i) {
+      for (let i = 0, n = _width; i < n; ++i) {
         const y0 = _scale(primary_.valueAt(i)),
           y1 = _scale(secondary_.valueAt(i));
         if (y0 > y1)
