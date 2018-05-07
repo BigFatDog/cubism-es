@@ -70,13 +70,13 @@ const apiGangliaWeb = context => ({
         gangliaWebMetric.toString = () => titleGenerator(metricInfo);
 
         /* Allow users to run their custom code each time a gangliaWebMetric changes.
-                 *
-                 * TODO Consider abstracting away the naked Cubism call, and instead exposing
-                 * a callback that takes in the values array (maybe alongwith the original
-                 * start and stop 'naked' parameters), since it's handy to have the entire
-                 * dataset at your disposal (and users will likely implement onChangeCallback
-                 * primarily to get at this dataset).
-                 */
+         *
+         * TODO Consider abstracting away the naked Cubism call, and instead exposing
+         * a callback that takes in the values array (maybe alongwith the original
+         * start and stop 'naked' parameters), since it's handy to have the entire
+         * dataset at your disposal (and users will likely implement onChangeCallback
+         * primarily to get at this dataset).
+         */
         if (onChangeCallback) {
           gangliaWebMetric.on('change', onChangeCallback);
         }
