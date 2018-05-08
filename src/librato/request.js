@@ -1,3 +1,5 @@
+import { json } from 'd3-fetch';
+
 import downUpSampling from './downUpSampling';
 import makeUrl from './makeUrl';
 
@@ -17,26 +19,23 @@ const request = (composite, user, token) => ({
       .header('X-Requested-With', 'XMLHttpRequest')
       .header('Authorization', auth_string)
       .header('Librato-User-Agent', 'cubism/' + cubism.version)
-      .get(function(error, data) {
-        /* Callback; data available */
-        if (!error) {
-          if (data.measurements.length === 0) {
-            return;
-          }
-          data.measurements[0].series.forEach(function(o) {
-            a_values.push(o);
-          });
-
-          const still_more_values =
-            'query' in data && 'next_time' in data.query;
-          if (still_more_values) {
-            request(makeUrl(data.query.next_time, iedate, step));
-          } else {
-            const a_adjusted = downUpSampling(isdate, iedate, step, a_values);
-            callback_done(a_adjusted);
-          }
+      .then(data => {
+        if (data.measurements.length === 0) {
+          return;
         }
-      });
+        data.measurements[0].series.forEach(function(o) {
+          a_values.push(o);
+        });
+
+        const still_more_values = 'query' in data && 'next_time' in data.query;
+        if (still_more_values) {
+          request(makeUrl(data.query.next_time, iedate, step));
+        } else {
+          const a_adjusted = downUpSampling(isdate, iedate, step, a_values);
+          callback_done(a_adjusted);
+        }
+      })
+      .catch(error => console.error(error));
   },
 });
 
