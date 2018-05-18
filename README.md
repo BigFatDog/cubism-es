@@ -1,7 +1,5 @@
 # cubism-es
-cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.  For more information, please
-visit square/cubism's [home page](http://square.github.io/cubism/) and [wiki](https://github.com/square/cubism/wiki)
-
+cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.
 
 ## Usage:
 
@@ -48,6 +46,10 @@ npm run build       // build
 npm run test        // run tests only
 npm run test:cover  // run tests and view coverage report
 ```
+
+## Documentation
+For more information, please visit square/cubism's [home page](http://square.github.io/cubism/) and [wiki](https://github.com/square/cubism/wiki)
+
 
 ## Limitation
 Graphite, Cube and GangliaWeb have not been verified yet.
