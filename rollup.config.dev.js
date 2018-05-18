@@ -16,7 +16,7 @@ export default {
             preferConst: true,
         }),
         localResolve(),
-        postcss({ extract: 'dist/cubism-es.css' }),
+        postcss({ extract: 'dist/cubism.css' }),
         babel(babelrc()),
         resolve({
             module: true,
@@ -41,7 +41,7 @@ export default {
     external: [],
     output: [
         {
-            file: 'dist/cubism-es.standalone.js',
+            file: 'dist/cubism.standalone.js',
             format: 'umd',
             name: 'cubism',
             sourcemap: true
