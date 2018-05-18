@@ -1,5 +1,5 @@
-# cubism
-cubism is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.  For more information, please
+# @bigfatdog/cubism
+This project is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.  For more information, please
 visit square/cubism's [home page](http://square.github.io/cubism/) and [wiki](https://github.com/square/cubism/wiki)
 
 
