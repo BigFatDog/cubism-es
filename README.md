@@ -1,5 +1,5 @@
-# @bigfatdog/cubism
-This project is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.  For more information, please
+# cubism-es
+cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.  For more information, please
 visit square/cubism's [home page](http://square.github.io/cubism/) and [wiki](https://github.com/square/cubism/wiki)
 
 
@@ -8,13 +8,13 @@ visit square/cubism's [home page](http://square.github.io/cubism/) and [wiki](ht
 1. Install
 
 ```
-npm install @bigfatdog/cubism --save
+npm install cubism-es --save
 ```
 
 2. ES6 Usage
 
 ```
-import { context } from 'cubism';
+import { context } from 'cubism-es';
 
 ```
 
@@ -23,7 +23,7 @@ import { context } from 'cubism';
 // in cubism
 d3.select(...).call(cubism.context)
 
-// in @BigFatDog/cubism
+// in cubism-es
 const a = d3.select(...)
 cubism.context(a).height(30)
 
