@@ -17,15 +17,14 @@ import { context } from 'cubism-es';
 ```
 
 ## API Breaks
-```
-// in cubism
-d3.select(...).call(cubism.context)
+function | cubism | cubism-es
+--- | --- | ---
+**Context** | `d3.select(...).call(cubism.context)` | `const context = cubism.context(d3.select(...)).height(30)`
+**Context.axis** | `d3.select(...).call(context.axis)` | `context.axis(d3.select(...))`
+**Context.rule** | `d3.select(...).call(context.rule)` | `context.rule(d3.select(...))`
+**Context.horizon** | `d3.select(...).call(context.horizon)` | `context.horizon(d3.select(...))`
 
-// in cubism-es
-const a = d3.select(...)
-cubism.context(a).height(30)
 
-```
 
 ## Demo
 the following samples work, you can try them by downloading this project and running `npm install` and `npm run dev`:
