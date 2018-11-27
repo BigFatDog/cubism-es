@@ -271,15 +271,15 @@
     var foo = random("foo"),
         bar = random("bar");
 
-    console.log(foo.add(bar));
-    console.log(foo.subtract(bar));
+    // console.log(foo.add(bar));
+    // console.log(foo.subtract(bar));
 
     d3.select("#example1").call(function(div) {
 
         div.append("div")
             .attr("class", "axis")
             // .call(context.axis());
-        context.axis(d3.selectAll('.axis'))
+        context.axis().render(d3.selectAll('.axis'))
 
         const h1 = div.selectAll(".horizon")
             // .data([foo, bar])
@@ -288,41 +288,39 @@
                 .enter().append("div")
             .attr("class", "horizon");
 
-        context.horizon(h1).extent([-20, 20])
-            // .call(context.horizon()._extent([-20, 20]));
+        context.horizon().height(120).extent([-20, 20]).render(h1);
 
         div.append("div")
             .attr("class", "rule");
 
-        context.rule(div.selectAll(
+        context.rule().render(div.selectAll(
             '.rule'
-        ))
-            // .call(context.rule());
+        ));
 
     });
 
     d3.select("#example2a").call(function(div) {
         div.datum(foo);
 
-        const a = div.append("div")
-            .attr("class", "horizon");
-
-        context.horizon(a)
+        context.horizon()
             .height(120)
             .mode("mirror")
             .colors(["#bdd7e7","#bae4b3"])
             .title("Area (120px)")
-            .extent([-10, 10]);
+            .extent([-10, 10])
+            .render(div.append("div")
+                .attr("class", "horizon"));
 
         const b = div.append("div")
             .attr("class", "horizon");
 
-        context.horizon(b)
-            .height(30)
+        context.horizon()
+            .height(80)
             .mode("mirror")
             .colors(["#bdd7e7","#bae4b3"])
             .title("Area (30px)")
-            .extent([-10, 10]);
+            .extent([-10, 10])
+            .render(b);
     });
 
     d3.select("#example2b").call(function(div) {
@@ -331,38 +329,41 @@
         const c = div.append("div")
             .attr("class", "horizon");
 
-        context.horizon(c)
+        context.horizon()
             .height(120)
             .colors(["#bdd7e7","#bae4b3"])
             .title("Horizon, 1-band (120px)")
             .extent([-10, 10])
+            .render(c);
 
         const d = div.append("div")
             .attr("class", "horizon")
-        context.horizon(d)
+        context.horizon()
             .height(60)
             .colors(["#6baed6","#bdd7e7","#bae4b3","#74c476"])
             .title("Horizon, 2-band (60px)")
             .extent([-10, 10])
+            .render(d);
 
         const e = div.append("div")
             .attr("class", "horizon");
 
-
-        context.horizon(e)
-            .height(40)
+        context.horizon()
+            .height(120)
             .colors(["#3182bd","#6baed6","#bdd7e7","#bae4b3","#74c476","#31a354"])
             .title("Horizon, 3-band (40px)")
             .extent([-10, 10])
+            .render(e);
 
         const f = div.append("div")
             .attr("class", "horizon");
 
-        context.horizon(f)
+        context.horizon()
             .height(30)
             .colors(["#08519c","#3182bd","#6baed6","#bdd7e7","#bae4b3","#74c476","#31a354","#006d2c"])
             .title("Horizon, 4-band (30px)")
             .extent([-10, 10])
+            .render(f);
 
     });
 

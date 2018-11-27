@@ -276,18 +276,18 @@
         div.append("div")
             .attr("class", "axis")
         // .call(context.axis());
-        context.axis(d3.selectAll('.axis'))
+        context.axis().render(d3.selectAll('.axis'));
 
         const ff = d3.select("#example1").selectAll(".comparison")
             .data([[foo, bar]])
             .enter().append("div")
             .attr("class", "comparison")
-        context.comparison(ff).height(20)
+        context.comparison().height(20).render(ff);
 
         div.append("div")
             .attr("class", "rule");
 
-        context.rule(div.selectAll(
+        context.rule().render(div.selectAll(
             '.rule'
         ))
     });

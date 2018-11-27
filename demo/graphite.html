@@ -140,23 +140,27 @@
         .data(["top", "bottom"])
         .enter().append("div").attr("class", "fluid-row")
         .attr("class", function(d) { return d + " axis"; })
-        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d) });
+        .each(function(d) { context.axis().ticks(12).orient(d).render(d3.select(this)) });
     const c = d3.select("body").append("div")
-        .attr("class", "rule")
+        .attr("class", "rule");
     context.rule(c);
     const a = d3.select("body").selectAll(".horizon")
         .data(api_metrics)
         .enter().insert("div", ".bottom")
         .attr("class", "horizon");
-    context.horizon(a)
+    context.horizon()
         .colors(["#08519c", "#*82bd", "#6baed6", "#fee6ce", "#fdae6b", "#e6550d" ])
         .extent([-1000, 1000])
+        .render(a);
     const b = d3.select("body").selectAll(".horizon2")
         .data(data_metrics)
         .enter().insert("div", ".bottom")
         .attr("class", "horizon");
 
-    context.horizon(b).colors(["#ddic77", "#c994c7", "#e7eief","#efedf5", "#bcbddc", "#756bb1" ]).extent([-1000, 1000])
+    context.horizon()
+        .colors(["#ddic77", "#c994c7", "#e7eief","#efedf5", "#bcbddc", "#756bb1" ])
+        .extent([-1000, 1000])
+        .render(b);
     context.on("focus", function(i) {
         d3.selectAll(".value").style("right", i == null ? null : context.size() - 1 - i + "px");
     });

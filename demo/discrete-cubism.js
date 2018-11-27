@@ -68,15 +68,16 @@ d3.select("#example1").call(function (div) {
 
     AddAllUsers();
 
-    div.append("div")
-        .attr("class", "axis")
-        .call(context.axis().orient("top"));
+    const axisDiv = div.append("div")
+        .attr("class", "axis");
+
+    context.axis().orient("top").render(axisDiv);
 
     RunData();
 
-    div.append("div")
-        .attr("class", "rule")
-        .call(context.rule());
+    const r = div.append("div")
+        .attr("class", "rule");
+    context.rule().render(r);
 
     RefreshUsers();
     RefreshEvents();
@@ -102,11 +103,11 @@ function AddAllUsers() {
 //////////////////////////////////////////////////
 
 function RunData() {
-    d3.select("#example1").selectAll(".horizon")
+    const cDiv = d3.select("#example1").selectAll(".horizon")
         .data(AllUsers)
         .enter().append("div")
-        .attr("class", "horizon")
-        .call(context.horizon().extent([-20, 20]));
+        .attr("class", "horizon");
+    context.horizon().extent([-20, 20]).render(cDiv);
 }
 
 

@@ -2,12 +2,12 @@ import { scaleLinear } from 'd3-scale';
 import { format } from 'd3-format';
 import { interpolateRound } from 'd3-interpolate';
 
-import runHorizon from './run';
+import apiRender from './apiRender';
 import apiMisc from './apiMisc';
 import apiRemove from './apiRemvoe';
 
 const apiHorizon = context => ({
-  horizon: function(selection) {
+  horizon: function() {
     const buffer = document.createElement('canvas');
     buffer.width = context.size();
     buffer.height = 30;
@@ -34,9 +34,12 @@ const apiHorizon = context => ({
       ],
     };
 
-    runHorizon(context, state, selection);
-
-    return Object.assign(state, apiRemove(state), apiMisc(state));
+    return Object.assign(
+      state,
+      apiRemove(state),
+      apiMisc(state),
+      apiRender(context, state)
+    );
   },
 });
 
