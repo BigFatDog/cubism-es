@@ -1,6 +1,6 @@
 {
   "name": "cubism-es",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Cubism.js ES6 module, based on D3 V5 components",
   "main": "dist/cubism-es.js",
   "module": "dist/cubism-es.mjs",
