@@ -1,7 +1,7 @@
 # cubism-es
 cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.
 
-> IMPORTANT Version 1.1.0 contains api breaks. Please see below for details
+> **IMPORTANT** Version 1.1.0 contains api breaks. Please see below for details
 
 
 ## Usage:
