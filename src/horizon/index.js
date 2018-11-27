@@ -34,7 +34,12 @@ const apiHorizon = context => ({
       ],
     };
 
-    return Object.assign(state, apiRemove(state), apiMisc(state), apiRender(context, state));
+    return Object.assign(
+      state,
+      apiRemove(state),
+      apiMisc(state),
+      apiRender(context, state)
+    );
   },
 });
 

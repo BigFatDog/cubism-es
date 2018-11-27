@@ -114,18 +114,20 @@
         .data(["top", "bottom"])
         .enter().append("div")
         .attr("class", function(d) { return d + " axis"; })
-        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d); });
+        .each(function(d) { context.axis().ticks(12).orient(d).render(d3.select(this)); });
 
     const r = d3.select("body").append("div")
         .attr("class", "rule");
 
-    context.rule(r);
+    context.rule().render(r);
 
     const h = d3.select("body").selectAll(".horizon")
         .data(d3.range(1, 50).map(random))
         .enter().insert("div", ".bottom")
         .attr("class", "horizon");
-    context.horizon(h).extent([-10, 10])
+    context.horizon()
+        .extent([-10, 10])
+        .render(h);
 
     context.on("focus", function(i) {
         d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");

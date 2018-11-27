@@ -2,9 +2,9 @@ import { scaleLinear } from 'd3-scale';
 import { interpolateRound } from 'd3-interpolate';
 import { format } from 'd3-format';
 
-import runComparison from './run';
 import apiRemove from './apiRemove';
 import apiMisc from './apiMisc';
+import apiRender from './apiRender';
 
 const initState = context => ({
   context,
@@ -22,12 +22,15 @@ const initState = context => ({
 });
 
 const apiComparison = context => ({
-  comparison: selection => {
+  comparison: () => {
     const state = initState(context);
 
-    runComparison(state, selection);
-
-    return Object.assign(state, apiRemove(state), apiMisc(state));
+    return Object.assign(
+      state,
+      apiRemove(state),
+      apiMisc(state),
+      apiRender(state)
+    );
   },
 });
 
