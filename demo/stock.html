@@ -116,12 +116,12 @@
         .data(['top', "bottom"])
         .enter().append("div")
         .attr("class", function(d) { return d + " axis"; })
-        .each(function(d) { context.axis(d3.select(this)).ticks(12).orient(d) });
+        .each(function(d) { context.axis().ticks(12).orient(d).render(d3.select(this)) });
 
     const d = d3.select("body").append("div")
         .attr("class", "rule")
         .attr('id', 'rule');
-    context.rule(d)
+    context.rule().render(d);
 
     d3.select("body").selectAll(".horizon")
         .data(["AAPL", "BIDU", "SINA", "GOOG", "MSFT", "YHOO", "ADBE", "REDF", "INSP", "IACI", "AVID", "CCUR", "DELL", "DGII", "HPQ", "SGI", "SMCI", "SNDK", "SYNA"].map(stock))
@@ -129,7 +129,7 @@
         .attr("class", "horizon");
 
 
-    context.horizon(d3.selectAll('.horizon')).format(d3.format("+,.2p"))
+    context.horizon().format(d3.format("+,.2p")).render(d3.selectAll('.horizon'))
 
     context.on("focus", function(i) {
         d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");

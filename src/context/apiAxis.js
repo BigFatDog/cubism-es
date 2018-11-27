@@ -34,52 +34,54 @@ const apiFocusFormat = axisState => ({
   },
 });
 
-const runAxis = (context, state, selection) => {
-  const { _axis, scale, format, id, size } = state;
-  let tick = null;
+const apiRender = (context, state) => ({
+  render: selection => {
+    const { _axis, scale, format, id, size } = state;
+    let tick = null;
 
-  const g = selection
-    .append('svg')
-    .datum({ id })
-    .attr('width', size)
-    .attr('height', Math.max(28, -_axis.tickSize()))
-    .append('g')
-    .attr('transform', 'translate(0,' + 4 + ')')
-    .call(_axis);
+    const g = selection
+      .append('svg')
+      .datum({ id })
+      .attr('width', size)
+      .attr('height', Math.max(28, -_axis.tickSize()))
+      .append('g')
+      .attr('transform', 'translate(0,' + 4 + ')')
+      .call(_axis);
 
-  context.on('change.axis-' + id, () => {
-    g.call(_axis);
-    if (!tick)
-      tick = select(
-        g.node().appendChild(
+    context.on('change.axis-' + id, () => {
+      g.call(_axis);
+      if (!tick)
+        tick = select(
+          g.node().appendChild(
+            g
+              .selectAll('text')
+              .node()
+              .cloneNode(true)
+          )
+        )
+          .style('display', 'none')
+          .text(null);
+    });
+
+    context.on('focus.axis-' + id, i => {
+      if (tick) {
+        if (i == null) {
+          tick.style('display', 'none');
+          g.selectAll('text').style('fill-opacity', null);
+        } else {
+          tick
+            .style('display', null)
+            .attr('x', i)
+            .text(format(scale.invert(i)));
+          const dx = tick.node().getComputedTextLength() + 6;
           g
             .selectAll('text')
-            .node()
-            .cloneNode(true)
-        )
-      )
-        .style('display', 'none')
-        .text(null);
-  });
-
-  context.on('focus.axis-' + id, i => {
-    if (tick) {
-      if (i == null) {
-        tick.style('display', 'none');
-        g.selectAll('text').style('fill-opacity', null);
-      } else {
-        tick
-          .style('display', null)
-          .attr('x', i)
-          .text(format(scale.invert(i)));
-        const dx = tick.node().getComputedTextLength() + 6;
-        g
-          .selectAll('text')
-          .style('fill-opacity', d => (Math.abs(scale(d) - i) < dx ? 0 : 1));
+            .style('fill-opacity', d => (Math.abs(scale(d) - i) < dx ? 0 : 1));
+        }
       }
-    }
-  });
-};
+    });
+  },
+});
 
 const apiTicks = axisState => ({
   ticks: (...args) => {
@@ -107,12 +109,17 @@ const apiOrient = axisSate => ({
       case 'default':
         console.warn('orient shall be one of bottom|top|left|right');
         break;
+      default:
+        console.warn('orient shall be one of bottom|top|left|right');
+        break;
     }
+
+    return axisSate;
   },
 });
 
 const apiAxis = context => ({
-  axis: selection => {
+  axis: () => {
     const axisState = {
       context,
       size: context._size,
@@ -122,14 +129,13 @@ const apiAxis = context => ({
       id: ++context._id,
     };
 
-    runAxis(context, axisState, selection);
-
     return Object.assign(
       axisState,
       apiRemove(axisState),
       apiFocusFormat(axisState),
       apiTicks(axisState),
-      apiOrient(axisState)
+      apiOrient(axisState),
+      apiRender(context, axisState)
     );
   },
 });

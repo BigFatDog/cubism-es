@@ -1,6 +1,9 @@
 # cubism-es
 cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based on D3V5.
 
+> **IMPORTANT** Version 1.1.0 contains api breaks. Please see below for details
+
+
 ## Usage:
 
 1. Install
@@ -15,8 +18,14 @@ npm install cubism-es --save
 import { context } from 'cubism-es';
 
 ```
+## API Breaks (v1.1.0)
+function | cubism | cubism-es
+--- | --- | ---
+**Context.axis** | `d3.select(...).call(context.axis)` | `context.axis().render(d3.select(...))`
+**Context.rule** | `d3.select(...).call(context.rule)` | `context.rule().render(d3.select(...))`
+**Context.horizon** | `d3.select(...).call(context.horizon)` | `context.horizon().render(d3.select(...))`
 
-## API Breaks
+## API Breaks (v1.0.0 and previous)
 function | cubism | cubism-es
 --- | --- | ---
 **Context** | `d3.select(...).call(cubism.context)` | `const context = cubism.context(d3.select(...)).height(30)`
