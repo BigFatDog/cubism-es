@@ -21,7 +21,6 @@ import { context } from 'cubism-es';
 ## API Breaks (v1.1.0)
 function | cubism | cubism-es
 --- | --- | ---
-**Context** | `d3.select(...).call(cubism.context)` | `cubism.context().height(30).render(d3.select(...))`
 **Context.axis** | `d3.select(...).call(context.axis)` | `context.axis().render(d3.select(...))`
 **Context.rule** | `d3.select(...).call(context.rule)` | `context.rule().render(d3.select(...))`
 **Context.horizon** | `d3.select(...).call(context.horizon)` | `context.horizon().render(d3.select(...))`
