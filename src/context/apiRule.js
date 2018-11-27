@@ -64,7 +64,7 @@ const apiRender = state => ({
       metric_.on('change.rule-' + id, change);
     });
 
-      _context.on('focus.rule-' + id, i => {
+    _context.on('focus.rule-' + id, i => {
       line
         // .datum(i)
         .style('display', i == null ? 'none' : null)
