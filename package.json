@@ -3,8 +3,8 @@
   "version": "1.1.0",
   "description": "Cubism.js ES6 module, based on D3 V5 components",
   "main": "dist/cubism-es.js",
-  "module": "dist/cubism-es.mjs",
-  "jsnext:main": "dist/cubism-es.mjs",
+  "module": "dist/cubism-es.esm.js",
+  "jsnext:main": "dist/cubism-es.esm.js",
   "scripts": {
     "_prebuild": "eslint src test",
     "build": "rollup -c",
