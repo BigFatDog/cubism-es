@@ -1,4 +1,4 @@
-import { select } from 'd3-selection';
+import { select, mouse } from 'd3-selection';
 
 const apiRender = (context, state) => ({
   render: selection => {
@@ -18,8 +18,7 @@ const apiRender = (context, state) => ({
 
     selection
       .on('mousemove.horizon', function() {
-        // todo: why directly importing mouse doesn't work here?
-        context.focus(Math.round(d3.mouse(this)[0]));
+        context.focus(Math.round(mouse(this)[0]));
       })
       .on('mouseout.horizon', () => context.focus(null));
 
