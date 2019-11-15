@@ -10,7 +10,7 @@ const options = (name, defaultValues) => {
       values.push(decodeURIComponent(o[1]));
     }
   }
-  return values.length || arguments.length < 2 ? values : defaultValues;
+  return values.length || !defaultValues ? values : defaultValues;
 };
 
 const option = (name, defaultValue) => {
