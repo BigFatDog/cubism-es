@@ -6,18 +6,22 @@ cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based 
 
 ## Usage:
 
-1. Install
+1. ES6 Usage
 
 ```
 npm install cubism-es --save
-```
-
-2. ES6 Usage
-
-```
 import { context } from 'cubism-es';
+```
+Please note adding `cubism-es` will automatically add `d3` as dependency into your project.
+From version `1.1.2`, there's no need to declare d3 as globals in your project with the `webpack ProvidePlugin`
+
+2. Standalone usage
 
 ```
+<script src="lib/d3.v5.min.js" charset="utf-8" type="application/javascript"></script>
+<script src="lib/cubism-es.standalone.js" charset="utf-8" type="application/javascript"></script>
+```
+
 ## API Breaks (v1.1.0)
 function | cubism | cubism-es
 --- | --- | ---
@@ -32,7 +36,6 @@ function | cubism | cubism-es
 **Context.axis** | `d3.select(...).call(context.axis)` | `context.axis(d3.select(...))`
 **Context.rule** | `d3.select(...).call(context.rule)` | `context.rule(d3.select(...))`
 **Context.horizon** | `d3.select(...).call(context.horizon)` | `context.horizon(d3.select(...))`
-
 
 
 ## Demo
