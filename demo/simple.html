@@ -233,7 +233,7 @@
 
 </style>
 <div id="body">
-    <div id="example1"></div>
+    <div id="example2a"></div>
 </div>
 
 <script src="lib/d3.v5.min.js" charset="utf-8"></script>
@@ -274,30 +274,30 @@
     // console.log(foo.add(bar));
     // console.log(foo.subtract(bar));
 
-    d3.select("#example1").call(function(div) {
-
-        div.append("div")
-            .attr("class", "axis")
-            // .call(context.axis());
-        context.axis().render(d3.selectAll('.axis'))
-
-        const h1 = div.selectAll(".horizon")
-            // .data([foo, bar])
-            .data([foo, bar, foo.add(bar), foo.subtract(bar)])
-
-                .enter().append("div")
-            .attr("class", "horizon");
-
-        context.horizon().height(120).extent([-20, 20]).render(h1);
-
-        div.append("div")
-            .attr("class", "rule");
-
-        context.rule().render(div.selectAll(
-            '.rule'
-        ));
-
-    });
+    // d3.select("#example1").call(function(div) {
+    //
+    //     div.append("div")
+    //         .attr("class", "axis")
+    //         // .call(context.axis());
+    //     context.axis().render(d3.selectAll('.axis'))
+    //
+    //     const h1 = div.selectAll(".horizon")
+    //         // .data([foo, bar])
+    //         .data([foo, bar, foo.add(bar), foo.subtract(bar)])
+    //
+    //             .enter().append("div")
+    //         .attr("class", "horizon");
+    //
+    //     context.horizon().height(120).extent([-20, 20]).render(h1);
+    //
+    //     div.append("div")
+    //         .attr("class", "rule");
+    //
+    //     context.rule().render(div.selectAll(
+    //         '.rule'
+    //     ));
+    //
+    // });
 
     d3.select("#example2a").call(function(div) {
         div.datum(foo);
