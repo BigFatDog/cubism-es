@@ -12,10 +12,10 @@ cubism-es is an ES6 module of [cubism](https://github.com/square/cubism), based 
 npm install cubism-es --save
 import { context } from 'cubism-es';
 ```
-Please note adding `cubism-es` will automatically add `d3` as dependency into your project.
+Please note adding `cubism-es` will automatically add `d3` as a dependency into your project.
 From version `1.1.2`, there's no need to declare d3 as globals in your project with the `webpack ProvidePlugin`
 
-2. Standalone usage
+2. Standalone Usage
 
 ```
 <script src="lib/d3.v5.min.js" charset="utf-8" type="application/javascript"></script>
