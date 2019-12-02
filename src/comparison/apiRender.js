@@ -1,4 +1,5 @@
-import { mouse, select } from 'd3-selection';
+import { select } from 'd3-selection';
+import * as d3 from 'd3';
 import uuid from '../uuid';
 
 const roundEven = i => i & 0xfffffe;

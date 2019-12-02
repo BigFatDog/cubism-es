@@ -33,6 +33,9 @@
     "d3-time-format": "^2.1.1",
     "d3-transition": "^1.1.1"
   },
+  "peerDependencies": {
+    "d3": "^5.14.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
