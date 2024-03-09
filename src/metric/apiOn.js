@@ -1,5 +1,5 @@
 // When the context changes, switch to the new data, ready-or-not!
-const beforechange = state => (start1, stop1) => {
+const beforechange = (state) => (start1, stop1) => {
   const { _step, _size } = state;
   if (!isFinite(state._start)) state._start = start1;
   state._values.splice(
@@ -18,7 +18,7 @@ const prepare = (state, request) => (start1, stop) => {
   state._fetching = true;
   state._steps = Math.min(_size, steps + 6);
   const start0 = new Date(stop - state._steps * _step);
-  request(start0, stop, _step, function(error, data) {
+  request(start0, stop, _step, function (error, data) {
     state._fetching = false;
     if (error) return console.warn(error);
     const i = isFinite(_start) ? Math.round((start0 - _start) / _step) : 0;

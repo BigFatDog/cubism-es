@@ -4,12 +4,12 @@ const apiRemove = (ruleState, selection) => ({
 
     selection
       .selectAll('.line')
-      .each(d => _context.on('focus.rule-' + d.id, null))
+      .each((d) => _context.on('focus.rule-' + d.id, null))
       .remove();
   },
 });
 
-const apiMetric = ruleState => ({
+const apiMetric = (ruleState) => ({
   metric: (metric = null) => {
     if (metric === null) return ruleState._metric;
     ruleState._metric = metric;
@@ -17,8 +17,8 @@ const apiMetric = ruleState => ({
   },
 });
 
-const apiRender = state => ({
-  render: selection => {
+const apiRender = (state) => ({
+  render: (selection) => {
     const { _context, _metric } = state;
     const id = ++_context._id;
 
@@ -57,14 +57,14 @@ const apiRender = state => ({
           .style('width', '1px')
           .style('pointer-events', 'none');
 
-        lines.style('left', i => i + 'px');
+        lines.style('left', (i) => i + 'px');
       };
 
       _context.on('change.rule-' + id, change);
       metric_.on('change.rule-' + id, change);
     });
 
-    _context.on('focus.rule-' + id, i => {
+    _context.on('focus.rule-' + id, (i) => {
       line
         // .datum(i)
         .style('display', i == null ? 'none' : null)
@@ -73,11 +73,11 @@ const apiRender = state => ({
   },
 });
 
-const apiRule = context => ({
+const apiRule = (context) => ({
   rule: () => {
     const state = {
       _context: context,
-      _metric: d => d,
+      _metric: (d) => d,
     };
 
     return Object.assign(

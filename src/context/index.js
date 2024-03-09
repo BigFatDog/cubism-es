@@ -76,7 +76,7 @@ const context = () => {
 
   const { focus } = _context;
 
-  select(window).on('keydown.context-' + ++_context._id, function() {
+  select(window).on('keydown.context-' + ++_context._id, function () {
     switch (!event.metaKey && event.keyCode) {
       case 37: // left
         if (focus == null) _context.focus = size - 1;

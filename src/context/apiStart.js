@@ -1,4 +1,4 @@
-const apiStart = state => ({
+const apiStart = (state) => ({
   start: () => {
     const {
       _timeout,

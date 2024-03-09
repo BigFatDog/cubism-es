@@ -3,7 +3,7 @@ const genericOperate = (name, operate) => (state, metric) => {
     {},
     state,
     {
-      valueAt: i => operate(state.valueAt(i), metric.valueAt(i)),
+      valueAt: (i) => operate(state.valueAt(i), metric.valueAt(i)),
       toString: () => `${state} ${name} ${metric}`,
       on: (type, listener = null) => {
         if (listener === null) return state.on(type);
@@ -12,7 +12,7 @@ const genericOperate = (name, operate) => (state, metric) => {
       },
     },
     {
-      shift: offset =>
+      shift: (offset) =>
         genericOperate(name, operate)(
           state.shift(offset),
           metric.shift(offset)
@@ -21,11 +21,11 @@ const genericOperate = (name, operate) => (state, metric) => {
   );
 };
 
-const apiOperator = state => ({
-  add: metric => genericOperate('+', (a, b) => a + b)(state, metric),
-  subtract: metric => genericOperate('-', (a, b) => a - b)(state, metric),
-  multiply: metric => genericOperate('*', (a, b) => a * b)(state, metric),
-  divide: metric => genericOperate('/', (a, b) => a / b)(state, metric),
+const apiOperator = (state) => ({
+  add: (metric) => genericOperate('+', (a, b) => a + b)(state, metric),
+  subtract: (metric) => genericOperate('-', (a, b) => a - b)(state, metric),
+  multiply: (metric) => genericOperate('*', (a, b) => a * b)(state, metric),
+  divide: (metric) => genericOperate('/', (a, b) => a / b)(state, metric),
 });
 
 export default apiOperator;

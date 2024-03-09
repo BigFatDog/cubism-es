@@ -1,7 +1,7 @@
 import { json } from 'd3-fetch';
 
-const apiGangliaWeb = context => ({
-  gangliaWeb: config => {
+const apiGangliaWeb = (context) => ({
+  gangliaWeb: (config) => {
     const host = config.host || '';
     let uriPathPrefix = config.uriPathPrefix || '/ganglia2/';
 
@@ -16,18 +16,14 @@ const apiGangliaWeb = context => ({
 
     return {
       toString: () => host + uriPathPrefix,
-      metric: metricInfo => {
+      metric: (metricInfo) => {
         /* Store the members from metricInfo into local variables. */
-        const {
-          clusterName,
-          metricName,
-          hostName,
-          onChangeCallback,
-        } = metricInfo;
+        const { clusterName, metricName, hostName, onChangeCallback } =
+          metricInfo;
         const isReport =
           metricInfo.isReport === undefined ? false : metricInfo.isReport;
         /* Reasonable (not necessarily pretty) default for titleGenerator. */
-        const defaultTitleGenerator = unusedMetricInfo =>
+        const defaultTitleGenerator = (unusedMetricInfo) =>
           `clusterName:${clusterName} metricName:${metricName} hostName:${hostName}`;
         const titleGenerator =
           metricInfo.titleGenerator || defaultTitleGenerator;
@@ -52,14 +48,14 @@ const apiGangliaWeb = context => ({
               'graph.php?' +
               constructGangliaWebRequestQueryParams()
           )
-            .then(result => {
+            .then((result) => {
               if (result === undefined || result === null) {
                 return callback(new Error('Unable to fetch GangliaWeb data'));
               }
 
               callback(null, result[0].data);
             })
-            .catch(e =>
+            .catch((e) =>
               callback(new Error(`Unable to fetch GangliaWeb data: Error ${e}`))
             );
         };

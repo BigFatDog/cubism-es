@@ -16,7 +16,7 @@ const downUpSampling = (isdate, iedate, step, librato_mm) => {
     if (int_mes.length) {
       /* Compute the average */
       v =
-        int_mes.reduce(function(a, b) {
+        int_mes.reduce(function (a, b) {
           return a + b;
         }) / int_mes.length;
     } else {

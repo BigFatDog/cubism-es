@@ -1,4 +1,4 @@
-const apiMisc = state => ({
+const apiMisc = (state) => ({
   mode: (_ = null) => {
     if (_ === null) return state._mode;
     state._mode = _ + '';

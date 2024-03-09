@@ -1,4 +1,4 @@
-const apiMisc = state => ({
+const apiMisc = (state) => ({
   height: (_ = null) => {
     if (_ === null) return state._height;
     state._height = +_;

@@ -6,8 +6,8 @@ import apiRender from './apiRender';
 import apiMisc from './apiMisc';
 import apiRemove from './apiRemvoe';
 
-const apiHorizon = context => ({
-  horizon: function() {
+const apiHorizon = (context) => ({
+  horizon: function () {
     const buffer = document.createElement('canvas');
     buffer.width = context.size();
     buffer.height = 30;
@@ -18,9 +18,9 @@ const apiHorizon = context => ({
       _width: buffer.width,
       _height: buffer.height,
       _scale: scaleLinear().interpolate(interpolateRound),
-      _metric: d => d,
+      _metric: (d) => d,
       _extent: null,
-      _title: d => d,
+      _title: (d) => d,
       _format: format('.2s'),
       _colors: [
         '#08519c',

@@ -1,4 +1,4 @@
-const apiExtent = state => ({
+const apiExtent = (state) => ({
   extent: () => {
     const { _size, _values } = state;
     let i = 0,

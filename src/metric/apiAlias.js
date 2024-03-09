@@ -1,5 +1,5 @@
-const apiAlias = state => ({
-  alias: name => {
+const apiAlias = (state) => ({
+  alias: (name) => {
     state.toString = () => name;
     return state;
   },
