@@ -11,19 +11,19 @@ const request = (composite, user, token) => ({
     const auth_string = 'Basic ' + btoa(user + ':' + token);
 
     /*
-         * Librato has a limit in the number of measurements we get back in a request (100).
-         * We recursively perform requests to the API to ensure we have all the data points
-         * for the interval we are working on.
-         */
+     * Librato has a limit in the number of measurements we get back in a request (100).
+     * We recursively perform requests to the API to ensure we have all the data points
+     * for the interval we are working on.
+     */
     json(full_url)
       .header('X-Requested-With', 'XMLHttpRequest')
       .header('Authorization', auth_string)
       .header('Librato-User-Agent', 'cubism/' + cubism.version)
-      .then(data => {
+      .then((data) => {
         if (data.measurements.length === 0) {
           return;
         }
-        data.measurements[0].series.forEach(function(o) {
+        data.measurements[0].series.forEach(function (o) {
           a_values.push(o);
         });
 
@@ -35,7 +35,7 @@ const request = (composite, user, token) => ({
           callback_done(a_adjusted);
         }
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   },
 });
 

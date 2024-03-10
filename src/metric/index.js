@@ -8,11 +8,11 @@ import apiShift from './apiShift';
 import apiValueAt from './apiValueAt';
 import apiOperator from './apiOperator';
 
-const apiToString = name => ({
+const apiToString = (name) => ({
   toString: () => name,
 });
 
-const apiMetric = context => ({
+const apiMetric = (context) => ({
   metric: (request, name) => {
     const metricState = {
       context,

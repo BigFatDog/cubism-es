@@ -2,7 +2,7 @@ import { select } from 'd3-selection';
 import * as d3 from 'd3';
 
 const apiRender = (context, state) => ({
-  render: selection => {
+  render: (selection) => {
     selection.append('div').attr('a', 'b');
     const {
       _width,
@@ -18,25 +18,19 @@ const apiRender = (context, state) => ({
     } = state;
 
     selection
-      .on('mousemove.horizon', function() {
+      .on('mousemove.horizon', function () {
         // todo: why directly importing mouse doesn't work here?
         context.focus(Math.round(d3.mouse(this)[0]));
       })
       .on('mouseout.horizon', () => context.focus(null));
 
-    selection
-      .append('canvas')
-      .attr('width', _width)
-      .attr('height', _height);
+    selection.append('canvas').attr('width', _width).attr('height', _height);
 
-    selection
-      .append('span')
-      .attr('class', 'title')
-      .text(_title);
+    selection.append('span').attr('class', 'title').text(_title);
 
     selection.append('span').attr('class', 'value');
 
-    selection.each(function(d, i) {
+    selection.each(function (d, i) {
       const id = ++context._id,
         metric_ = typeof _metric === 'function' ? _metric(d, i) : _metric,
         colors_ = typeof _colors === 'function' ? _colors(d, i) : _colors,
@@ -146,7 +140,7 @@ const apiRender = (context, state) => ({
         ctx.restore();
       }
 
-      const focus = i => {
+      const focus = (i) => {
         if (i == null) i = _width - 1;
         const value = metric_.valueAt(i);
         span.datum(value).text(isNaN(value) ? null : _format);
@@ -160,9 +154,9 @@ const apiRender = (context, state) => ({
       // but defer subsequent updates to the canvas change.
       // Note that someone still needs to listen to the metric,
       // so that it continues to update automatically.
-      metric_.on('change.horizon-' + id, function(start, stop) {
+      metric_.on('change.horizon-' + id, function (start, stop) {
         change(start, stop), focus();
-        if (ready) metric_.on('change.horizon-' + id, d => d);
+        if (ready) metric_.on('change.horizon-' + id, (d) => d);
       });
     });
   },

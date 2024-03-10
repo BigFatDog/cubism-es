@@ -1,4 +1,4 @@
-const update = state => {
+const update = (state) => {
   const { _step, _serverDelay, _clientDelay, _scale, _size } = state;
   const now = Date.now();
   state._stop0 = new Date(

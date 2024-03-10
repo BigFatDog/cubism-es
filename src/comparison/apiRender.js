@@ -2,11 +2,11 @@ import { select } from 'd3-selection';
 import * as d3 from 'd3';
 import uuid from '../uuid';
 
-const roundEven = i => i & 0xfffffe;
-const roundOdd = i => ((i + 1) & 0xfffffe) - 1;
+const roundEven = (i) => i & 0xfffffe;
+const roundOdd = (i) => ((i + 1) & 0xfffffe) - 1;
 
-const apiRender = state => ({
-  render: selection => {
+const apiRender = (state) => ({
+  render: (selection) => {
     const {
       context,
       _width,
@@ -23,26 +23,20 @@ const apiRender = state => ({
     } = state;
 
     selection
-      .on('mousemove.comparison', function() {
+      .on('mousemove.comparison', function () {
         // todo, why directly d3.mouse doesn't work?
         context.focus(Math.round(d3.mouse(this)[0]));
       })
       .on('mouseout.comparison', () => context.focus(null));
 
-    selection
-      .append('canvas')
-      .attr('width', _width)
-      .attr('height', _height);
+    selection.append('canvas').attr('width', _width).attr('height', _height);
 
-    selection
-      .append('span')
-      .attr('class', 'title')
-      .text(_title);
+    selection.append('span').attr('class', 'title').text(_title);
 
     selection.append('span').attr('class', 'value primary');
     selection.append('span').attr('class', 'value change');
 
-    selection.each(function(d, i) {
+    selection.each(function (d, i) {
       const id = uuid(),
         primary_ =
           typeof _primary === 'function' ? _primary.call(this, d, i) : _primary,
@@ -140,8 +134,8 @@ const apiRender = state => ({
         change(start, stop);
         focus();
         if (ready) {
-          primary_.on('change.comparison-' + id, d => d);
-          secondary_.on('change.comparison-' + id, d => d);
+          primary_.on('change.comparison-' + id, (d) => d);
+          secondary_.on('change.comparison-' + id, (d) => d);
         }
       };
 

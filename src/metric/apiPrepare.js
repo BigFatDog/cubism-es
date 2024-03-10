@@ -12,7 +12,7 @@ const apiPrepare = (state, request) => ({
     state._steps = Math.min(_size, steps + MetricOverlap);
     const start0 = new Date(stop - steps * _step);
 
-    request(start0, stop, _step, function(error, data) {
+    request(start0, stop, _step, function (error, data) {
       state._fetching = false;
       if (error) return console.warn(error);
       const i = isFinite(_start) ? Math.round((start0 - _start) / _step) : 0;

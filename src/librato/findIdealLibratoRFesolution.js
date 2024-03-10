@@ -1,17 +1,17 @@
 /* Given a step, find the best librato resolution to use.
-         *
-         * Example:
-         *
-         * (s) : cubism step
-         *
-         * avail_rsts   1 --------------- 60 --------------- 900 ---------------- 3600
-         *                                |    (s)            |
-         *                                |                   |
-         *                              [low_res             top_res]
-         *
-         * return: low_res (60)
-         */
-const findIdealLibratoRFesolution = step => {
+ *
+ * Example:
+ *
+ * (s) : cubism step
+ *
+ * avail_rsts   1 --------------- 60 --------------- 900 ---------------- 3600
+ *                                |    (s)            |
+ *                                |                   |
+ *                              [low_res             top_res]
+ *
+ * return: low_res (60)
+ */
+const findIdealLibratoRFesolution = (step) => {
   const avail_rsts = [1, 60, 900, 3600];
   const highest_res = avail_rsts[0],
     lowest_res = avail_rsts[avail_rsts.length]; // high and lowest available resolution from librato

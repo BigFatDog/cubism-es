@@ -1,7 +1,7 @@
-const apiRemove = state => ({
-  remove: selection => {
+const apiRemove = (state) => ({
+  remove: (selection) => {
     const { context } = state;
-    const _remove = d => {
+    const _remove = (d) => {
       d.primary.on('change.comparison-' + d.id, null);
       d.secondary.on('change.comparison-' + d.id, null);
       context.on('change.comparison-' + d.id, null);
@@ -9,10 +9,7 @@ const apiRemove = state => ({
     };
 
     selection.on('mousemove.comparison', null).on('mouseout.comparison', null);
-    selection
-      .selectAll('canvas')
-      .each(_remove)
-      .remove();
+    selection.selectAll('canvas').each(_remove).remove();
 
     selection.selectAll('.title,.value').remove();
   },

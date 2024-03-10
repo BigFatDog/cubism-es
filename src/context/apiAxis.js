@@ -5,19 +5,19 @@ import { select } from 'd3-selection';
 const formatSeconds = timeFormat('%I:%M:%S %p');
 const formatMinutes = timeFormat('%I:%M %p');
 const formatDays = timeFormat('%B %d');
-const formatDefault = context =>
+const formatDefault = (context) =>
   context.step() < 6e4
     ? formatSeconds
     : context.step() < 864e5
       ? formatMinutes
       : formatDays;
 
-const apiRemove = axisState => ({
-  remove: selection => {
+const apiRemove = (axisState) => ({
+  remove: (selection) => {
     const { context } = axisState;
     selection
       .selectAll('svg')
-      .each(d => {
+      .each((d) => {
         context.on('change.axis-' + d.id, null);
         context.on('focus.axis-' + d.id, null);
       })
@@ -25,7 +25,7 @@ const apiRemove = axisState => ({
   },
 });
 
-const apiFocusFormat = axisState => ({
+const apiFocusFormat = (axisState) => ({
   focusFormat: (_ = null) => {
     if (_ === null)
       return axisState.format === formatDefault(axisState.context) ? null : _;
@@ -35,7 +35,7 @@ const apiFocusFormat = axisState => ({
 });
 
 const apiRender = (context, state) => ({
-  render: selection => {
+  render: (selection) => {
     const { _axis, scale, format, id, size } = state;
     let tick = null;
 
@@ -52,18 +52,13 @@ const apiRender = (context, state) => ({
       g.call(_axis);
       if (!tick)
         tick = select(
-          g.node().appendChild(
-            g
-              .selectAll('text')
-              .node()
-              .cloneNode(true)
-          )
+          g.node().appendChild(g.selectAll('text').node().cloneNode(true))
         )
           .style('display', 'none')
           .text(null);
     });
 
-    context.on('focus.axis-' + id, i => {
+    context.on('focus.axis-' + id, (i) => {
       if (tick) {
         if (i == null) {
           tick.style('display', 'none');
@@ -74,24 +69,24 @@ const apiRender = (context, state) => ({
             .attr('x', i)
             .text(format(scale.invert(i)));
           const dx = tick.node().getComputedTextLength() + 6;
-          g
-            .selectAll('text')
-            .style('fill-opacity', d => (Math.abs(scale(d) - i) < dx ? 0 : 1));
+          g.selectAll('text').style('fill-opacity', (d) =>
+            Math.abs(scale(d) - i) < dx ? 0 : 1
+          );
         }
       }
     });
   },
 });
 
-const apiTicks = axisState => ({
+const apiTicks = (axisState) => ({
   ticks: (...args) => {
     axisState._axis.ticks(args);
     return axisState;
   },
 });
 
-const apiOrient = axisSate => ({
-  orient: orient => {
+const apiOrient = (axisSate) => ({
+  orient: (orient) => {
     const { context } = axisSate;
     switch (orient) {
       case 'top':
@@ -118,7 +113,7 @@ const apiOrient = axisSate => ({
   },
 });
 
-const apiAxis = context => ({
+const apiAxis = (context) => ({
   axis: () => {
     const axisState = {
       context,
